@@ -6,6 +6,8 @@ import vista.PrincipalView;
 import modelo.PrincipalModel;
 import vista.FuncionView;
 import modelo.FuncionModel;
+import modelo.JuegoModel;
+import vista.JuegoView;
 
 public class PrincipalController {
     
@@ -14,6 +16,10 @@ public class PrincipalController {
     private FuncionView vistaFuncion;
     private FuncionModel modeloFuncion;
     private FuncionController controladorFuncion;
+    private JuegoView vistaJuego;
+    private JuegoModel modeloJuego;
+    private JuegoController controladorJuego;
+
 
     public PrincipalController(PrincipalView vista, PrincipalModel modelo) {
         this.vista = vista;
@@ -38,7 +44,11 @@ public class PrincipalController {
             }
             
             if(e.getActionCommand().equalsIgnoreCase("Jugar")){
-                System.out.println("Holaa");
+                vistaJuego = new JuegoView();
+                modeloJuego = new JuegoModel();
+                controladorJuego = new JuegoController(vistaJuego, modeloJuego);
+                
+                vista.dispose();
            }
         }
         

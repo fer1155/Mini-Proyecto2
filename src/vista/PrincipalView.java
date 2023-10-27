@@ -96,7 +96,7 @@ public class PrincipalView extends JFrame {
     private void establecerBotonJuego() {
         botonJuego = new JButton("Jugar");
         botonJuego.setFocusPainted(false);
-        botonJuego.setBounds(290, 180, 300, 60); 
+        botonJuego.setBounds(290, 220, 300, 60); 
         botonJuego.setForeground(Color.WHITE);
         botonJuego.setFont(new Font("Kristen ITC", 0, 30));
         Color colorFondoBtn = new Color(16, 113, 229);
