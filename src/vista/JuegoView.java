@@ -3,12 +3,14 @@ package vista;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import javax.swing.border.Border;
 
 public class JuegoView extends JFrame {
     private JLayeredPane layeredPane;
@@ -33,6 +35,13 @@ public class JuegoView extends JFrame {
     private boolean estadoEtq7;
     private boolean estadoEtq8;
     private int idEtiqueta1, idEtiqueta2, idEtiqueta3, idEtiqueta4, idEtiqueta5, idEtiqueta6, idEtiqueta7, idEtiqueta8;
+    private ImageIcon imagenVida1;
+    private JLabel etiquetaVida1;
+    private ImageIcon imagenVida2;
+    private JLabel etiquetaVida2;
+    private ImageIcon imagenVida3;
+    private JLabel etiquetaVida3;
+    private Border bordeLineaNegra;
     
     //Constructor de la ventana Juego
     public JuegoView(){
@@ -49,6 +58,7 @@ public class JuegoView extends JFrame {
         establecerFondo();
         establecerBotonDelJuego();
         establecerEtiquetas();
+        establecerVidas();
     }
     
     private void establecerLayeredPanel() {
@@ -81,6 +91,26 @@ public class JuegoView extends JFrame {
     
     public void addBtnJuegoListener(MouseListener listenControl){
         etiquetaBotonJuego.addMouseListener(listenControl);
+    }
+    
+    private void establecerVidas() {
+        imagenVida1 = new ImageIcon("vida.png");
+        etiquetaVida1 = new JLabel();
+        etiquetaVida1.setBounds(220, 40, 50, 50);
+        etiquetaVida1.setIcon(new ImageIcon(imagenVida1.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
+        layeredPane.add(etiquetaVida1, JLayeredPane.MODAL_LAYER);
+        
+        imagenVida2 = new ImageIcon("vida.png");
+        etiquetaVida2 = new JLabel();
+        etiquetaVida2.setBounds(300, 40, 50, 50);
+        etiquetaVida2.setIcon(new ImageIcon(imagenVida2.getImage().getScaledInstance(etiquetaVida2.getWidth(), etiquetaVida2.getHeight(), Image.SCALE_SMOOTH)));
+        layeredPane.add(etiquetaVida2, JLayeredPane.MODAL_LAYER);
+        
+        imagenVida3 = new ImageIcon("vida.png");
+        etiquetaVida3 = new JLabel();
+        etiquetaVida3.setBounds(380, 40, 50, 50);
+        etiquetaVida3.setIcon(new ImageIcon(imagenVida3.getImage().getScaledInstance(etiquetaVida3.getWidth(), etiquetaVida3.getHeight(), Image.SCALE_SMOOTH)));
+        layeredPane.add(etiquetaVida3, JLayeredPane.MODAL_LAYER);
     }
     
     private void establecerEtiquetas(){
@@ -189,8 +219,47 @@ public class JuegoView extends JFrame {
         estadoEtq8 = true;
     }
     
+    public void setIconEtiqueta1Finalizar(ImageIcon imagen){
+        etiqueta1.setIcon(null);
+        estadoEtq1 = false;
+    }
+    
+    public void setIconEtiqueta2Finalizar(ImageIcon imagen){
+        etiqueta2.setIcon(null);
+        estadoEtq2 = false;
+    }
+    
+    public void setIconEtiqueta3Finalizar(ImageIcon imagen){
+        etiqueta3.setIcon(null);
+        estadoEtq3 = false;
+    }
+    
+    public void setIconEtiqueta4Finalizar(ImageIcon imagen){
+        etiqueta4.setIcon(null);
+        estadoEtq4 = false;
+    }
+    
+    public void setIconEtiqueta5Finalizar(ImageIcon imagen){
+        etiqueta5.setIcon(null);
+        estadoEtq5 = false;
+    }
+    
+    public void setIconEtiqueta6Finalizar(ImageIcon imagen){
+        etiqueta6.setIcon(null);
+        estadoEtq6 = false;
+    }
+    
+    public void setIconEtiqueta7Finalizar(ImageIcon imagen){
+        etiqueta7.setIcon(null);
+        estadoEtq7 = false;
+    }
+    
+    public void setIconEtiqueta8Finalizar(ImageIcon imagen){
+        etiqueta8.setIcon(null);
+        estadoEtq8 = false;
+    }
+    
     public void setIconEtiqueta(int id, ImageIcon imagen){
-
         switch(id){
             case 1 -> etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
             case 2 -> etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
@@ -200,6 +269,67 @@ public class JuegoView extends JFrame {
             case 6 -> etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
             case 7 -> etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
             case 8 -> etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));  
+        }
+    }
+    
+    public void setIconEtiquetaPonerBorde(int id){
+        bordeLineaNegra = BorderFactory.createLineBorder(Color.BLACK, 6);
+        
+        switch(id) { 
+            case 1 -> {
+                etiqueta1.setBorder(bordeLineaNegra);
+            }
+            case 2 -> {
+                etiqueta2.setBorder(bordeLineaNegra);
+            }
+            case 3 -> {
+                etiqueta3.setBorder(bordeLineaNegra);
+            }
+            case 4 -> {
+                etiqueta4.setBorder(bordeLineaNegra);
+            }
+            case 5 -> {
+                etiqueta5.setBorder(bordeLineaNegra);
+            }
+            case 6 -> {
+                etiqueta6.setBorder(bordeLineaNegra);
+            }
+            case 7 -> {
+                etiqueta7.setBorder(bordeLineaNegra);
+            }
+            case 8 -> {
+                etiqueta8.setBorder(bordeLineaNegra);
+            }
+        }
+    }
+    
+    public void setIconEtiquetaQuitarBorde(int id){
+        
+        switch(id) { 
+            case 1 -> {
+                etiqueta1.setBorder(null);
+            }
+            case 2 -> {
+                etiqueta2.setBorder(null);
+            }
+            case 3 -> {
+                etiqueta3.setBorder(null);
+            }
+            case 4 -> {
+                etiqueta4.setBorder(null);
+            }
+            case 5 -> {
+                etiqueta5.setBorder(null);
+            }
+            case 6 -> {
+                etiqueta6.setBorder(null);
+            }
+            case 7 -> {
+                etiqueta7.setBorder(null);
+            }
+            case 8 -> {
+                etiqueta8.setBorder(null);
+            }
         }
     }
 
@@ -265,6 +395,18 @@ public class JuegoView extends JFrame {
     
     public ImageIcon getIconEtiqueta8(){
         return (ImageIcon) etiqueta8.getIcon();
+    }
+    
+    public void setIconEtiquetaVida1(ImageIcon imagen){
+        etiquetaVida1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
+    }
+    
+    public void setIconEtiquetaVida2(ImageIcon imagen){
+        etiquetaVida2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
+    }
+    
+    public void setIconEtiquetaVida3(ImageIcon imagen){
+        etiquetaVida3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
     }
     
     
