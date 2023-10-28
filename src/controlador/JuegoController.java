@@ -12,9 +12,11 @@ import java.util.Objects;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import modelo.EstadisticasModel;
 import modelo.JuegoModel;
 import modelo.JuegoModel.Figura;
 import modelo.JuegoModel.Ronda;
+import vista.EstadisticasView;
 import vista.JuegoView;
 
 public class JuegoController {
@@ -38,11 +40,16 @@ public class JuegoController {
     private Ronda ronda;
     private boolean hayFallo;
     private int numFiguras;
+    private ImageIcon vidaPerdida;
+    private EstadisticasView vistaEstadisticas;
+    private EstadisticasModel modeloEstadisticas;
+    private EstadisticasController controladorEstadisticas;
 
     public JuegoController(JuegoView vista, JuegoModel modelo) {
         this.vista = vista;
         this.modelo = modelo;
         
+        vidaPerdida = new ImageIcon("vidaPerdida.png");
         vista.setVisible(true);
         numFiguras = 3;
         ronda = new JuegoModel().crearRonda();
@@ -53,14 +60,28 @@ public class JuegoController {
     private void iniciarJuego() {
         crearImagenes();
         colocarImagenes(numFiguras);
-        transicionDeImagen();
+        transicionDeImagen(); // Reinicia la transición de imágenes
     }
     
-    private void iniciarJuegoOtraVez() {
+    private void iniciarJuegoOtraVezAcierto() {
         crearImagenes();
         numFiguras = numFiguras + 1;
         colocarImagenes(numFiguras);
-        transicionDeImagen();
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // Detiene el temporizador si está en ejecución
+        }
+        transicionDeImagen(); // Reinicia la transición de imágenes
+    }
+    
+    private void iniciarJuegoOtraVezFallo() {
+        //ronda.restarVida();
+        quitarVida();
+        crearImagenes();
+        colocarImagenes(numFiguras);
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // Detiene el temporizador si está en ejecución
+        }
+        transicionDeImagen(); // Reinicia la transición de imágenes
     }
     
     private void crearImagenes() {
@@ -134,14 +155,14 @@ public class JuegoController {
 
     private void transicionDeImagen() {
         // Configura un temporizador para cambiar las imágenes cada 3 segundos        
+        vista.setIconEtiquetaPonerBorde(etiquetasConImagen.get(indiceImagen));
         
-        System.out.println(etiquetasConImagen.get(0));
         timer = new Timer(4000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                determinarFallo();
                 if(indiceImagen < etiquetasConImagen.size()) {
                     int elemento = etiquetasConImagen.get(indiceImagen);
-                    determinarFallo();
                     mostrarSiguienteImagen(elemento);
                     indiceImagen++;
                     indiceImagen2++;
@@ -157,10 +178,12 @@ public class JuegoController {
     }
     
     private void mostrarSiguienteImagen(int id) {
+        
         if (indiceImagen2 < listaDeFigurasTransicion.size()) {
             Collections.shuffle(listaDeFigurasTransicion);
             vista.setIconEtiqueta(id, listaDeFigurasTransicion.get(indiceImagen2));
             verificarImagenes();
+            //vista.setIconEtiquetaQuitarBorde(id);
         }else{
             // Reinicia la transición cuando se han mostrado todas las imágenes
             indiceImagen2 = 0;
@@ -197,14 +220,17 @@ public class JuegoController {
     }
     
     
-    class ventanaListener extends MouseAdapter{
-        
+    class ventanaListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            limpiar();
-            iniciarJuegoOtraVez();                
-        }   
-    } 
+            if(hayFallo == true){
+                limpiar();
+                iniciarJuegoOtraVezAcierto();  // Agrega esta línea para reiniciar el juego
+            }else{
+                System.out.println("Aun no hay fallo");
+            }   
+        }
+    }
     
     
     private void verificarImagenes(){        
@@ -284,14 +310,14 @@ public class JuegoController {
     
     public void limpiar(){
         ImageIcon figuraVacia = new ImageIcon("figuraTrasparente.png");
-        vista.setIconEtiqueta1(figuraVacia);
-        vista.setIconEtiqueta2(figuraVacia);
-        vista.setIconEtiqueta3(figuraVacia);
-        vista.setIconEtiqueta4(figuraVacia);
-        vista.setIconEtiqueta5(figuraVacia);
-        vista.setIconEtiqueta6(figuraVacia);
-        vista.setIconEtiqueta7(figuraVacia);
-        vista.setIconEtiqueta8(figuraVacia);
+        vista.setIconEtiqueta1Finalizar(figuraVacia);
+        vista.setIconEtiqueta2Finalizar(figuraVacia);
+        vista.setIconEtiqueta3Finalizar(figuraVacia);
+        vista.setIconEtiqueta4Finalizar(figuraVacia);
+        vista.setIconEtiqueta5Finalizar(figuraVacia);
+        vista.setIconEtiqueta6Finalizar(figuraVacia);
+        vista.setIconEtiqueta7Finalizar(figuraVacia);
+        vista.setIconEtiqueta8Finalizar(figuraVacia);
         
         listaDeFigurasPrincipal.clear();
         listaDeFigurasUsadas.clear();
@@ -304,10 +330,46 @@ public class JuegoController {
     public void determinarFallo(){
         if(hayFallo == true){
             limpiar();
-            ronda.restarVida();
-            iniciarJuego();
-            timer.stop();
+            switch (numFiguras) {
+                case 3 -> numFiguras = 3;
+                case 4 -> numFiguras = 3;
+                case 5 -> numFiguras = 4;
+                case 6 -> numFiguras = 5;
+                case 7 -> numFiguras = 6;
+                case 8 -> numFiguras = 7;
+                default -> {
+                }
+            }
+            iniciarJuegoOtraVezFallo();
+        }else{
+            System.out.println("No hay fallo aun ");
         }   
+    }
+    
+    public void quitarVida(){
+        switch (ronda.getVidas()) {
+            case 3 -> {
+                ronda.restarVida();
+                vista.setIconEtiquetaVida1(vidaPerdida);
+                System.out.println("Se resto una vida");
+            }
+            case 2 -> {
+                ronda.restarVida();
+                vista.setIconEtiquetaVida2(vidaPerdida);
+                System.out.println("Se resto dos vidas");
+            }
+            case 1 -> {
+                ronda.restarVida();
+                vista.setIconEtiquetaVida3(vidaPerdida);
+
+                vistaEstadisticas = new EstadisticasView();
+                modeloEstadisticas = new EstadisticasModel();
+                controladorEstadisticas = new EstadisticasController(vistaEstadisticas, modeloEstadisticas);
+                
+                vista.dispose();
+            }
+            default -> System.out.println("No te quedan vidas");
+        }
     }
 
 }
