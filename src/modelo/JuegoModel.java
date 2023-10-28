@@ -6,10 +6,20 @@ public class JuegoModel {
     public JuegoModel() {
     }
     
+    public Figura crearFigura(int id, String imagen){
+        Figura figura = new Figura(id, imagen);
+        return figura;         
+    }
+    
     public Figura crearFigura(int id, ImageIcon imagen){
         Figura figura = new Figura(id, imagen);
         return figura;         
-    }  
+    }
+    
+    public Ronda crearRonda(){
+        Ronda ronda = new Ronda();
+        return ronda;         
+    }
     
     public class Figura extends ImageIcon{
         private int id;
@@ -32,6 +42,24 @@ public class JuegoModel {
         
         public ImageIcon getImagen(){
             return figura;
+        }
+    }
+    
+    public class Ronda{
+        private int vidas;
+        
+        public Ronda() {
+            vidas = 3;
+        }
+        
+        public void restarVida(){
+            if(vidas > 0){
+                vidas = vidas-1;
+            }
+        }
+        
+        public int getVidas(){
+            return vidas;
         }
     }
 }
