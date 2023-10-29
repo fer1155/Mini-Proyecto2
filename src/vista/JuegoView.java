@@ -185,7 +185,7 @@ public class JuegoView extends JFrame {
     }
     
     public void setIconEtiqueta2(ImageIcon imagen){
-        etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
         estadoEtq2 = true;
     }
     
@@ -262,14 +262,45 @@ public class JuegoView extends JFrame {
     public void setIconEtiqueta(int id, ImageIcon imagen){
         switch(id){
             case 1 -> etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 2 -> etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 3 -> etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 4 -> etiqueta4.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 5 -> etiqueta5.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 6 -> etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 7 -> etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 8 -> etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));  
+            case 2 -> etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
+            case 3 -> etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta3.getWidth(), etiqueta3.getHeight(), Image.SCALE_SMOOTH)));
+            case 4 -> etiqueta4.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta4.getWidth(), etiqueta4.getHeight(), Image.SCALE_SMOOTH)));
+            case 5 -> etiqueta5.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta5.getWidth(), etiqueta5.getHeight(), Image.SCALE_SMOOTH)));
+            case 6 -> etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta6.getWidth(), etiqueta6.getHeight(), Image.SCALE_SMOOTH)));
+            case 7 -> etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta7.getWidth(), etiqueta7.getHeight(), Image.SCALE_SMOOTH)));
+            case 8 -> etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta8.getWidth(), etiqueta8.getHeight(), Image.SCALE_SMOOTH)));  
         }
+    }
+    
+    public ImageIcon getIconEtiqueta(int id){
+
+        switch(id) { 
+            case 1 -> {
+                return (ImageIcon) etiqueta1.getIcon();
+            }
+            case 2 -> {
+                return (ImageIcon) etiqueta2.getIcon();
+            }
+            case 3 -> {
+                return (ImageIcon) etiqueta3.getIcon();
+            }
+            case 4 -> {
+                return (ImageIcon) etiqueta4.getIcon();
+            }
+            case 5 -> {
+                return (ImageIcon) etiqueta5.getIcon();
+            }
+            case 6 -> {
+                return (ImageIcon) etiqueta6.getIcon();
+            }
+            case 7 -> {
+                return (ImageIcon) etiqueta7.getIcon();
+            }
+            case 8 -> {
+                return (ImageIcon) etiqueta8.getIcon();
+            }
+        }
+        return null;
     }
     
     public void setIconEtiquetaPonerBorde(int id){
