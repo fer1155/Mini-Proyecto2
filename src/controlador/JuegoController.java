@@ -277,8 +277,13 @@ public class JuegoController {
         reproducirSonido("cambio.wav");
         if (indiceImagen2 < listaDeFigurasTransicion.size()) {
             Collections.shuffle(listaDeFigurasTransicion);
+            for(ImageIcon elemento : listaDeFigurasTransicion) {
+                System.out.println(elemento);
+            }
             vista.setIconEtiqueta(id, listaDeFigurasTransicion.get(indiceImagen2));
-            verificarImagenes();
+            System.out.println(id);
+            System.out.println(listaDeFigurasTransicion.get(indiceImagen2));
+            //verificarImagenes();
         }else{
             //Reinicia la transición cuando se han mostrado todas las imágenes
             indiceImagen2 = 0;
@@ -288,7 +293,7 @@ public class JuegoController {
     private void quitarImagenRepetida(ImageIcon imagenActual) {
         for(ImageIcon elemento : listaDeFigurasTransicion){
             areEqual3 = areImageIconsEqual(imagenActual, elemento);
-            if(areEqual3){
+            if(areEqual3 == true){
                 listaDeFigurasTransicion.remove(elemento);
                 figuraRepetida = elemento;
             }
@@ -408,15 +413,16 @@ public class JuegoController {
         Image image1 = icon1.getImage();
         Image image2 = icon2.getImage();
 
-        /*
+        
         if (image1.getWidth(null) != image2.getWidth(null) || image1.getHeight(null) != image2.getHeight(null)) {
             return false;  // Si las dimensiones son diferentes, las imágenes no son iguales.
-        }*/
+        }
 
         // Convertir ambas imágenes en BufferedImage para facilitar la comparación.
         BufferedImage bufferedImage1 = toBufferedImage(image1);
         BufferedImage bufferedImage2 = toBufferedImage(image2);
 
+        /*
         // Comparar píxel por píxel.
         int width = bufferedImage1.getWidth();
         int height = bufferedImage1.getHeight();
@@ -427,7 +433,7 @@ public class JuegoController {
                     return false;  // Si se encuentra un píxel diferente, las imágenes no son iguales.
                 }
             }
-        }
+        }*/
 
         return true;  // Si no se encontraron diferencias en los píxeles, las imágenes son iguales.
     }
