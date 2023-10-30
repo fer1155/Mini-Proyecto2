@@ -78,7 +78,7 @@ public class PrincipalView extends JFrame {
         imagenSoldador = new ImageIcon("soldador.png");
         JLabel etiquetaImg1 = new JLabel();
         etiquetaImg1.setBounds(0, 200, 360, 390);
-        etiquetaImg1.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
+        etiquetaImg1.setIcon(new ImageIcon(imagenSoldador.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaImg1, JLayeredPane.MODAL_LAYER);
     }
     
