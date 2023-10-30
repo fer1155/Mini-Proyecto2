@@ -21,9 +21,7 @@ public class VentanaParaQueSirve extends JFrame {
     private ImageIcon imagenFondo;
     private JLabel texto;
     private ImageIcon imagenSoldador;
-    private JButton boton1;
-    private JButton boton2;
-    private JButton boton3;
+    private JButton boton;
     
      //Constructor de la ventana Principal
     public VentanaParaQueSirve(){
@@ -39,9 +37,9 @@ public class VentanaParaQueSirve extends JFrame {
         establecerPanel();
         establecerFondo();
         establecerTexto();
-        establecerBoton();
+        
        // establecerSoldador();
-       // establecerBoton1();
+        establecerBoton();
         //establecerBoton2();
        // establecerBoton3();
     }
@@ -77,20 +75,24 @@ public class VentanaParaQueSirve extends JFrame {
         layeredPane.add(texto, JLayeredPane.MODAL_LAYER);    
     }
     
-    public class establecerBoton extends JFrame {
-    public establecerBoton() {
-        super("Botón con Imagen");
-
-        // Crea un botón
-        JButton boton = new JButton();
-
-        // Carga una imagen en un ImageIcon
-        ImageIcon icono = new ImageIcon("torn.jpg"); // Cambia "ruta_de_la_imagen.jpg" por la ruta de tu imagen
+ private void establecerBoton() {
+        boton = new JButton("¿PARA QUE SIRVE?");
+        boton.setBounds(550, 350, 230, 60); 
+        boton.setForeground(Color.WHITE);
+        boton.setFont(new Font("Bernard MT Condensed", 0, 28));
+        Color colorFondoBtn3 = new Color(78, 39, 0);
+        boton.setBackground(colorFondoBtn3);
+        Color colorBorde2 = new Color(94, 94, 94);
+        boton.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
+        layeredPane.add(boton, JLayeredPane.MODAL_LAYER);
+        boton.setFocusPainted(false);
+        
+        ImageIcon icono = new ImageIcon("tornillo.jpg");
 
         // Establece el icono en el botón
         boton.setIcon(icono);
-
-         
+    
+    
     ActionListener oyenteDeAccion = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,27 +101,15 @@ public class VentanaParaQueSirve extends JFrame {
                 dispose();
                 
                 //Abre la ventana principal
-                VentanaParaQueSirve ventanaParaQueSirve = new VentanaParaQueSirve();
-                ventanaParaQueSirve.setVisible(true);
+                PrincipalView principalView = new PrincipalView();
+                principalView.setVisible(true);
             }
         };
         boton.addActionListener(oyenteDeAccion);
-
-        // Agrega el botón a la ventana
-        getContentPane().add(boton);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(200, 200);
-        setVisible(true); 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
+   
+    
+    
+    
 
