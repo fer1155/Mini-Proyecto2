@@ -18,9 +18,10 @@ public class PrincipalView extends JFrame {
     private JPanel panel;
     private ImageIcon imagenFondo;
     private JLabel titulo;
-    private ImageIcon imagen1;
+    private ImageIcon imagenSoldador;
     private JButton botonFuncion;
     private JButton botonJuego;
+    private JButton boton2;
     
     //Constructor de la ventana Principal
     public PrincipalView(){
@@ -36,6 +37,7 @@ public class PrincipalView extends JFrame {
         establecerPanel();
         establecerFondo();
         establecerTitulo();
+        establecerBoton2();
         establecerImagen();
         establecerBotonFuncion();
         establecerBotonJuego();
@@ -60,33 +62,33 @@ public class PrincipalView extends JFrame {
         etiquetaFondo.setIcon(new ImageIcon(imagenFondo.getImage().getScaledInstance(etiquetaFondo.getWidth(), etiquetaFondo.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaFondo, JLayeredPane.PALETTE_LAYER);
     }
-    
+        
     private void establecerTitulo() {
         titulo = new JLabel("ADOSADOS");
-        titulo.setBounds(180, 20, 520, 100);
-        titulo.setOpaque(true); 
-        titulo.setBackground(Color.WHITE);
-        Color colorLetra = new Color(40, 28, 5);
+        titulo.setBounds(265, 20, 530, 120);
+        //titulo.setOpaque(true); 
+        //titulo.setBackground(Color.WHITE);
+        Color colorLetra = new Color(78, 39, 0);
         titulo.setForeground(colorLetra);
-        titulo.setFont(new Font("Verdana", 1, 80));
+        titulo.setFont(new Font("Bernard MT Condensed", 1, 85));
         layeredPane.add(titulo, JLayeredPane.MODAL_LAYER);    
     }
 
     private void establecerImagen() {
-        imagen1 = new ImageIcon("");
+        imagenSoldador = new ImageIcon("soldador.png");
         JLabel etiquetaImg1 = new JLabel();
-        etiquetaImg1.setBounds(10, 10, 10, 10);
+        etiquetaImg1.setBounds(0, 200, 360, 390);
         etiquetaImg1.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaImg1, JLayeredPane.MODAL_LAYER);
     }
     
     private void establecerBotonFuncion() {
-        botonFuncion = new JButton("¿Para que sirve?");
+        botonFuncion = new JButton("¿PARA QUE SIRVE?");
         botonFuncion.setFocusPainted(false);
-        botonFuncion.setBounds(290, 140, 300, 60); 
+        botonFuncion.setBounds(550, 350, 230, 60);  
         botonFuncion.setForeground(Color.WHITE);
-        botonFuncion.setFont(new Font("Kristen ITC", 0, 30));
-        Color colorFondoBtn = new Color(16, 113, 229);
+        botonFuncion.setFont(new Font("Bernard MT Condensed", 0, 28));
+        Color colorFondoBtn = new Color(78, 39, 0);
         botonFuncion.setBackground(colorFondoBtn);
         Color colorBorde = new Color(94, 94, 94);
         botonFuncion.setBorder(BorderFactory.createLineBorder(colorBorde,3,true));
@@ -94,16 +96,29 @@ public class PrincipalView extends JFrame {
     }
     
     private void establecerBotonJuego() {
-        botonJuego = new JButton("Jugar");
+        botonJuego = new JButton("JUGAR");
         botonJuego.setFocusPainted(false);
-        botonJuego.setBounds(290, 220, 300, 60); 
+        botonJuego.setBounds(455, 265, 180, 60);
         botonJuego.setForeground(Color.WHITE);
-        botonJuego.setFont(new Font("Kristen ITC", 0, 30));
-        Color colorFondoBtn = new Color(16, 113, 229);
+        botonJuego.setFont(new Font("Bernard MT Condensed", 0, 28));
+        Color colorFondoBtn = new Color(78, 39, 0);
         botonJuego.setBackground(colorFondoBtn);
         Color colorBorde = new Color(94, 94, 94);
         botonJuego.setBorder(BorderFactory.createLineBorder(colorBorde,3,true));
         layeredPane.add(botonJuego, JLayeredPane.MODAL_LAYER);
+    }
+  
+    private void establecerBoton2() {
+        boton2 = new JButton("¿COMO JUGAR?");
+        boton2.setFocusPainted(false);
+        boton2.setBounds(310, 350, 230, 60); 
+        boton2.setForeground(Color.WHITE);
+        boton2.setFont(new Font("Bernard MT Condensed", 0, 28));
+        Color colorFondoBtn2 = new Color(78, 39, 0);
+        boton2.setBackground(colorFondoBtn2);
+        Color colorBorde2 = new Color(94, 94, 94);
+        boton2.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
+        layeredPane.add(boton2, JLayeredPane.MODAL_LAYER); 
     }
     
     public void addBtnFuncionListener(ActionListener listenControl){
