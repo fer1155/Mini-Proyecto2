@@ -3,10 +3,7 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
-=======
->>>>>>> develop
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,17 +19,14 @@ public class PrincipalView extends JFrame {
     private JPanel panel;
     private ImageIcon imagenFondo;
     private JLabel titulo;
-<<<<<<< HEAD
+
     private ImageIcon imagenSoldador;
     private JButton boton1;
     private JButton boton2;
     private JButton boton3;
     
-=======
-    private ImageIcon imagen1;
-    private JButton botonFuncion;
-    private JButton botonJuego;
->>>>>>> develop
+
+  
     
     //Constructor de la ventana Principal
     public PrincipalView(){
@@ -48,16 +42,13 @@ public class PrincipalView extends JFrame {
         establecerPanel();
         establecerFondo();
         establecerTitulo();
-<<<<<<< HEAD
+
         establecerSoldador();
         establecerBoton1();
-        establecerBoton2();
+        establecerBoton2(); 
         establecerBoton3();
-=======
-        establecerImagen();
-        establecerBotonFuncion();
-        establecerBotonJuego();
->>>>>>> develop
+
+       
     }
     
     private void establecerLayeredPanel() {
@@ -98,7 +89,6 @@ public class PrincipalView extends JFrame {
         titulo.setFont(new Font("Bernard MT Condensed", 1, 85));
         layeredPane.add(titulo, JLayeredPane.MODAL_LAYER);    
     }
-<<<<<<< HEAD
  
     private void establecerBoton1() {
         boton1 = new JButton("JUGAR");
@@ -152,48 +142,6 @@ public class PrincipalView extends JFrame {
             }
         };
         boton3.addActionListener(oyenteDeAccion);
-=======
 
-    private void establecerImagen() {
-        imagen1 = new ImageIcon("");
-        JLabel etiquetaImg1 = new JLabel();
-        etiquetaImg1.setBounds(10, 10, 10, 10);
-        etiquetaImg1.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
-        layeredPane.add(etiquetaImg1, JLayeredPane.MODAL_LAYER);
-    }
-    
-    private void establecerBotonFuncion() {
-        botonFuncion = new JButton("¿Para que sirve?");
-        botonFuncion.setFocusPainted(false);
-        botonFuncion.setBounds(290, 140, 300, 60); 
-        botonFuncion.setForeground(Color.WHITE);
-        botonFuncion.setFont(new Font("Kristen ITC", 0, 30));
-        Color colorFondoBtn = new Color(16, 113, 229);
-        botonFuncion.setBackground(colorFondoBtn);
-        Color colorBorde = new Color(94, 94, 94);
-        botonFuncion.setBorder(BorderFactory.createLineBorder(colorBorde,3,true));
-        layeredPane.add(botonFuncion, JLayeredPane.MODAL_LAYER);
-    }
-    
-    private void establecerBotonJuego() {
-        botonJuego = new JButton("Jugar");
-        botonJuego.setFocusPainted(false);
-        botonJuego.setBounds(290, 220, 300, 60); 
-        botonJuego.setForeground(Color.WHITE);
-        botonJuego.setFont(new Font("Kristen ITC", 0, 30));
-        Color colorFondoBtn = new Color(16, 113, 229);
-        botonJuego.setBackground(colorFondoBtn);
-        Color colorBorde = new Color(94, 94, 94);
-        botonJuego.setBorder(BorderFactory.createLineBorder(colorBorde,3,true));
-        layeredPane.add(botonJuego, JLayeredPane.MODAL_LAYER);
-    }
-    
-    public void addBtnFuncionListener(ActionListener listenControl){
-        botonFuncion.addActionListener(listenControl);
-    }
-    
-    public void addBtnJuegoListener(ActionListener listenControl){
-        botonJuego.addActionListener(listenControl);
->>>>>>> develop
     }
 }
