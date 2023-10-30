@@ -3,6 +3,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -119,5 +121,20 @@ public class PrincipalView extends JFrame {
         boton3.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
         layeredPane.add(boton3, JLayeredPane.MODAL_LAYER);
         boton3.setFocusPainted(false);
+    
+    
+    ActionListener oyenteDeAccion = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              
+                //Cierra la ventana introduccion
+                dispose();
+                
+                //Abre la ventana principal
+                VentanaParaQueSirve ventanaParaQueSirve = new VentanaParaQueSirve();
+                ventanaParaQueSirve.setVisible(true);
+            }
+        };
+        boton3.addActionListener(oyenteDeAccion);
     }
 }
