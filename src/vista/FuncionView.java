@@ -59,7 +59,7 @@ public class FuncionView extends JFrame {
     
      private void establecerTexto() {
         texto = new JLabel("<html>Este juego pone en acción la habilidad para comparar patrones visuales, entrenando además la atención a los detalles y la velocidad perceptiva. Estas capacidades son relevantes cuando hay que decidir entre estímulos semejantes y hay que hacerlo de forma rápida, por ejemplo, al reconocer fotografías, caras, objetos cotidianos o palabras escritas.</html>");
-        texto.setBounds(100, 105, 600, 250);
+        texto.setBounds(125, 165, 600, 250);
         //titulo.setOpaque(true); 
         //titulo.setBackground(Color.WHITE);
         Color colorLetra = new Color(0, 0, 0);
@@ -71,7 +71,7 @@ public class FuncionView extends JFrame {
     private void establecerBotonCerrar() {
         imagenBotonCerrar = new ImageIcon("tornillo.png");
         etiquetaBotonCerrar = new JLabel();
-        etiquetaBotonCerrar.setBounds(100, 100, 50, 50);
+        etiquetaBotonCerrar.setBounds(723, 105, 65, 65);
         etiquetaBotonCerrar.setIcon(new ImageIcon(imagenBotonCerrar.getImage().getScaledInstance(etiquetaBotonCerrar.getWidth(), etiquetaBotonCerrar.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaBotonCerrar, JLayeredPane.MODAL_LAYER);
     }
