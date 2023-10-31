@@ -14,7 +14,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 import modelo.EstadisticasModel;
 import modelo.JuegoModel;
 import modelo.JuegoModel.Figura;
@@ -26,10 +27,10 @@ public class JuegoController {
     
     private JuegoView vista;
     private JuegoModel modelo;
-    private ArrayList<ImageIcon> listaDeFigurasPrincipal;
-    private ArrayList<ImageIcon> listaDeFigurasUsadas;
-    private ArrayList<ImageIcon> listaDeFigurasTransicion;
-    private ArrayList<ImageIcon> imagenesActivas;
+    private ArrayList<Figura> listaDeFigurasPrincipal;
+    private ArrayList<Figura> listaDeFigurasUsadas;
+    private ArrayList<Figura> listaDeFigurasTransicion;
+    private ArrayList<Figura> imagenesActivas;
     private ArrayList<Integer> numerosUsados = new ArrayList<>();
     private ArrayList<Integer> etiquetasConImagen;
     Random random = new Random();
@@ -54,7 +55,11 @@ public class JuegoController {
     private Figura figura9;
     private Figura figura10;
     private boolean ejecucionActiva = true;
-    private ImageIcon figuraRepetida;
+    private Figura figuraRepetida;
+    private boolean quitarImagenRepetida = false; 
+    private TimerTask tarea; 
+    private Timer timer2;
+    private TimerTask tarea2;
 
     public JuegoController(JuegoView vista, JuegoModel modelo) {
         this.vista = vista;
@@ -70,51 +75,52 @@ public class JuegoController {
 
     private void iniciarJuego() {
         colocarImagenes(numFiguras, 0);
-        transicionDeImagen(0); // Reinicia la transición de imágenes
+        transicionDeImagen(0); 
     }
     
     private void iniciarJuegoOtraVezAcierto() {
         reproducirSonido("acierto.wav");
-        if (timer != null && timer.isRunning()) {
+        /*if (timer != null && timer.isRunning()) {
             timer.stop(); // Detiene el temporizador si está en ejecución
-        }
+        }*/
         crearImagenes();
         colocarImagenes(numFiguras, 1000);
         transicionDeImagen(2000); // Reinicia la transición de imágenes
     }
     
     private void iniciarJuegoOtraVezFallo() {
-        //ronda.restarVida();
+        hayFallo = false;
+        tarea2.cancel();
+        timer2.cancel();
         reproducirSonido("fallo.wav");
-        if (timer != null && timer.isRunning()) {
-            timer.stop(); // Detiene el temporizador si está en ejecución
-        }
-        quitarVida();
-        crearImagenes();
-        colocarImagenes(numFiguras, 1000);
+        System.out.println("Se reiniciaaaaaaaa");
+        //ronda.restarVida();
+
+        //quitarVida();
+        //crearImagenes();
+        colocarImagenes(numFiguras, 0);
         
         /*for(ImageIcon elemento : listaDeFigurasTransicion) {
             System.out.println(elemento);
         }*/
         
-        transicionDeImagen(2000); // Reinicia la transición de imágenes
+        transicionDeImagen(0); // Reinicia la transición de imágenes
         
     }
     
     private void crearImagenes() {
-        hayFallo = false;
         listaDeFigurasPrincipal = new ArrayList<>();
         
-        figura1 = new JuegoModel().crearFigura(1, "figura1.png");
-        figura2 = new JuegoModel().crearFigura(2, "figura2.png");
-        figura3 = new JuegoModel().crearFigura(3, "figura3.png");
-        figura4 = new JuegoModel().crearFigura(4, "figura4.png");
-        figura5 = new JuegoModel().crearFigura(5, "figura5.png");
-        figura6 = new JuegoModel().crearFigura(6, "figura6.png");
-        figura7 = new JuegoModel().crearFigura(7, "figura7.png");
-        figura8 = new JuegoModel().crearFigura(8, "figura8.png");
-        figura9 = new JuegoModel().crearFigura(9, "figura9.png");
-        figura10 = new JuegoModel().crearFigura(10, "figura10.png");
+        figura1 = new JuegoModel().crearFigura("figura1.png", 1);
+        figura2 = new JuegoModel().crearFigura("figura2.png", 2);
+        figura3 = new JuegoModel().crearFigura("figura3.png", 3);
+        figura4 = new JuegoModel().crearFigura("figura4.png", 4);
+        figura5 = new JuegoModel().crearFigura("figura5.png", 5);
+        figura6 = new JuegoModel().crearFigura("figura6.png", 6);
+        figura7 = new JuegoModel().crearFigura("figura7.png", 7);
+        figura8 = new JuegoModel().crearFigura("figura8.png", 8);
+        figura9 = new JuegoModel().crearFigura("figura9.png", 9);
+        figura10 = new JuegoModel().crearFigura("figura10.png", 10);
         
         listaDeFigurasPrincipal.add(figura1);
         listaDeFigurasPrincipal.add(figura2);
@@ -147,23 +153,24 @@ public class JuegoController {
         System.out.println(numeroDeImagenes);
         
         for(int i = 0; i < numeroDeImagenes; i++){
-            Figura imagen1 = (Figura) listaDeFigurasPrincipal.get(i);
-            listaDeFigurasUsadas.add(imagen1.getImagen());
+            //Figura imagen1 = (Figura) listaDeFigurasPrincipal.get(i);
+            //listaDeFigurasUsadas.add(imagen1.getImagen());
+            listaDeFigurasUsadas.add(listaDeFigurasPrincipal.get(i));
         }
                 
         for(int i = 0; i < numeroDeImagenes+2; i++){
-            Figura imagen2 = (Figura) listaDeFigurasPrincipal.get(i);
-            listaDeFigurasTransicion.add(imagen2.getImagen());
+            //Figura imagen2 = (Figura) listaDeFigurasPrincipal.get(i);
+            //listaDeFigurasTransicion.add(imagen2.getImagen());
+            listaDeFigurasTransicion.add(listaDeFigurasPrincipal.get(i));
         }
         
-        for(ImageIcon elemento : listaDeFigurasUsadas) {
+        for(Figura elemento : listaDeFigurasUsadas) {
             System.out.println(elemento);
         }
         
-        for(ImageIcon elemento : listaDeFigurasTransicion) {
+        for(Figura elemento : listaDeFigurasTransicion) {
             System.out.println(elemento);
         }
-        
         
         int min = 1; // Número mínimo
         int max = 8; // Número máximo
@@ -173,15 +180,14 @@ public class JuegoController {
             numerosUsados.add(i);
         }
         
-        
-        for(ImageIcon elemento : listaDeFigurasUsadas) {
+        for(Figura elemento : listaDeFigurasUsadas) {
             asignarImagenAEtiquetaRamdon(elemento);
         }
         
         asignarEtiquetasConEstadoTrue();
     }
     
-    private void asignarImagenAEtiquetaRamdon(ImageIcon figura){
+    private void asignarImagenAEtiquetaRamdon(Figura figura){
         
         while (!numerosUsados.isEmpty()) {
             // Genera un índice aleatorio dentro del rango de la lista
@@ -250,58 +256,87 @@ public class JuegoController {
             e.printStackTrace();
         }
         
-        //Configura un temporizador para cambiar las imágenes cada 4 segundos        
-        timer = new Timer(4000, new ActionListener() {
+        
+        timer = new Timer();
+        tarea = new TimerTask() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                //determinarFallo();
+            public void run() {
                 if(indiceImagen < etiquetasConImagen.size()) {
                     int elemento = etiquetasConImagen.get(indiceImagen);
+                    System.out.println("La actual era: " + vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
                     quitarImagenRepetida(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
-                    System.out.println(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
                     mostrarSiguienteImagen(elemento);
-                    System.out.println(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
                     devolverImagenRepetida();
                     indiceImagen++;
                     indiceImagen2++;
                 }else if(indiceImagen >= etiquetasConImagen.size()){
                     indiceImagen = 0;
+                    indiceImagen2 = 0;
+                }
+            }
+        };
+        
+        timer.schedule(tarea, 2000, 6000);
+        determinarFallo();
+        
+        
+        /*
+        //Configura un temporizador para cambiar las imágenes cada 4 segundos        
+        timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                determinarFallo();
+                if(indiceImagen < etiquetasConImagen.size()) {
+                    int elemento = etiquetasConImagen.get(indiceImagen);
+                    System.out.println("La actual era: " + vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
+                    quitarImagenRepetida(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
+                    mostrarSiguienteImagen(elemento);
+                    devolverImagenRepetida();
+                    indiceImagen++;
+                    indiceImagen2++;
+                }else if(indiceImagen >= etiquetasConImagen.size()){
+                    indiceImagen = 0;
+                    indiceImagen2 = 0;
                 }
             }
         });
         timer.setRepeats(true); // Para que el temporizador se ejecute periódicamente
-        timer.start();    
+        timer.start();   */ 
     }
     
     private void mostrarSiguienteImagen(int id) {
         reproducirSonido("cambio.wav");
         if (indiceImagen2 < listaDeFigurasTransicion.size()) {
             Collections.shuffle(listaDeFigurasTransicion);
-            for(ImageIcon elemento : listaDeFigurasTransicion) {
+            for(Figura elemento : listaDeFigurasTransicion) {
                 System.out.println(elemento);
             }
             vista.setIconEtiqueta(id, listaDeFigurasTransicion.get(indiceImagen2));
-            System.out.println(id);
-            System.out.println(listaDeFigurasTransicion.get(indiceImagen2));
-            //verificarImagenes();
-        }else{
-            //Reinicia la transición cuando se han mostrado todas las imágenes
-            indiceImagen2 = 0;
+            //System.out.println(id);
+            //System.out.println("Se cambio a: " + listaDeFigurasTransicion.get(indiceImagen2));
+            verificarImagenes();
         }
     }
     
-    private void quitarImagenRepetida(ImageIcon imagenActual) {
-        for(ImageIcon elemento : listaDeFigurasTransicion){
-            areEqual3 = areImageIconsEqual(imagenActual, elemento);
-            if(areEqual3 == true){
-                listaDeFigurasTransicion.remove(elemento);
+    private void quitarImagenRepetida(Figura imagenActual) {
+        for(Figura elemento : listaDeFigurasTransicion){
+            if(imagenActual.getID() == elemento.getID()){
+                quitarImagenRepetida = true;
                 figuraRepetida = elemento;
+            }else{
+                System.out.println("No se quito");
             }
+        }
+        
+        if(quitarImagenRepetida == true){
+            listaDeFigurasTransicion.remove(figuraRepetida);
+            System.out.println("Se quito:"+ figuraRepetida );
         }
     }
     
     private void devolverImagenRepetida() {
         listaDeFigurasTransicion.add(figuraRepetida);
+        quitarImagenRepetida = false;
     }
     
     private void asignarEtiquetasConEstadoTrue(){
@@ -344,14 +379,7 @@ public class JuegoController {
         @Override
         public void mouseClicked(MouseEvent e) {
             ImageIcon figuraVacia = new ImageIcon("figuraTrasparente.png");
-            vista.setIconEtiqueta1Finalizar(figuraVacia);
-            vista.setIconEtiqueta2Finalizar(figuraVacia);
-            vista.setIconEtiqueta3Finalizar(figuraVacia);
-            vista.setIconEtiqueta4Finalizar(figuraVacia);
-            vista.setIconEtiqueta5Finalizar(figuraVacia);
-            vista.setIconEtiqueta6Finalizar(figuraVacia);
-            vista.setIconEtiqueta7Finalizar(figuraVacia);
-            vista.setIconEtiqueta8Finalizar(figuraVacia);
+
             colocarImagenes(numFiguras, 0);
             
             
@@ -378,12 +406,9 @@ public class JuegoController {
         obtenerImagenesActivas();
         for(int i = 0; i < imagenesActivas.size(); i++) {
             for(int j = i + 1; j < imagenesActivas.size(); j++) {
-                areEqual = areImageIconsEqual(imagenesActivas.get(i), imagenesActivas.get(j));
-                if (areEqual){
+                if (imagenesActivas.get(i).getID() == imagenesActivas.get(j).getID() ){
                     hayFallo = true;
                     System.out.println("Hay fallo"); 
-                }else{
-                    hayFallo = false;
                 }
             }
         }
@@ -449,7 +474,8 @@ public class JuegoController {
     }
     
     public void limpiar(){
-        ImageIcon figuraVacia = new ImageIcon("figuraTrasparente.png");
+        /*
+        Figura figuraVacia = new JuegoModel().crearFigura("figuraTrasparente.png", 0);
         vista.setIconEtiqueta1Finalizar(figuraVacia);
         vista.setIconEtiqueta2Finalizar(figuraVacia);
         vista.setIconEtiqueta3Finalizar(figuraVacia);
@@ -457,7 +483,16 @@ public class JuegoController {
         vista.setIconEtiqueta5Finalizar(figuraVacia);
         vista.setIconEtiqueta6Finalizar(figuraVacia);
         vista.setIconEtiqueta7Finalizar(figuraVacia);
-        vista.setIconEtiqueta8Finalizar(figuraVacia);
+        vista.setIconEtiqueta8Finalizar(figuraVacia);*/
+        
+        vista.setIconEtiqueta1Finalizar();
+        vista.setIconEtiqueta2Finalizar();
+        vista.setIconEtiqueta3Finalizar();
+        vista.setIconEtiqueta4Finalizar();
+        vista.setIconEtiqueta5Finalizar();
+        vista.setIconEtiqueta6Finalizar();
+        vista.setIconEtiqueta7Finalizar();
+        vista.setIconEtiqueta8Finalizar();
         
         //listaDeFigurasPrincipal.clear();
         listaDeFigurasUsadas.clear();
@@ -465,10 +500,22 @@ public class JuegoController {
         etiquetasConImagen.clear();
         imagenesActivas.clear();
         numerosUsados.clear();
+        
+        indiceImagen = 0;
+        indiceImagen2 = 0;
     }
     
     public void determinarFallo(){
-        if(hayFallo == true){
+        /*if(hayFallo == true){
+            
+            if (timer != null && timer.isRunning()) {
+                timer.stop();
+                timer.cancel();// Detiene el temporizador si está en ejecución
+            }
+            tarea.cancel();
+            timer.cancel();
+
+            System.out.println("Se limpiooooo");
             limpiar();
             switch (numFiguras) {
                 case 3 -> numFiguras = 3;
@@ -478,10 +525,38 @@ public class JuegoController {
                 case 7 -> numFiguras = 6;
                 case 8 -> numFiguras = 7;
             }
-            iniciarJuegoOtraVezFallo();
+            
+            iniciarJuegoOtraVezFallo(); 
         }else{
-            System.out.println("No hay fallo aun ");
-        }   
+            System.out.println("No hubo cambio aun");
+        }*/
+        
+        timer2 = new Timer();
+        tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+                if(hayFallo == true){
+                    tarea.cancel();
+                    timer.cancel();
+
+                    System.out.println("Se limpiooooo");
+                    limpiar();
+                    switch (numFiguras) {
+                        case 3 -> numFiguras = 3;
+                        case 4 -> numFiguras = 3;
+                        case 5 -> numFiguras = 4;
+                        case 6 -> numFiguras = 5;
+                        case 7 -> numFiguras = 6;
+                        case 8 -> numFiguras = 7;
+                    }
+                    iniciarJuegoOtraVezFallo(); 
+                }else{
+                    System.out.println("No hubo cambio aun");
+                } 
+            }
+        };
+        
+        timer2.schedule(tarea2, 1000, 5000);
     }
     
     public void quitarVida(){
@@ -499,9 +574,10 @@ public class JuegoController {
             case 1 -> {
                 ronda.restarVida();
                 vista.setIconEtiquetaVida3(vidaPerdida);
-                if (timer != null && timer.isRunning()) {
+                
+                /*if (timer != null && timer.isRunning()) {
                     timer.stop(); // Detiene el temporizador si está en ejecución
-                }
+                }*/
                 
                 vistaEstadisticas = new EstadisticasView();
                 modeloEstadisticas = new EstadisticasModel();

@@ -11,6 +11,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.Border;
+import modelo.JuegoModel.Figura;
 
 public class JuegoView extends JFrame {
     private JLayeredPane layeredPane;
@@ -42,6 +43,14 @@ public class JuegoView extends JFrame {
     private ImageIcon imagenVida3;
     private JLabel etiquetaVida3;
     private Border bordeLineaNegra;
+    private Figura figuraEtq1;
+    private Figura figuraEtq2;
+    private Figura figuraEtq3;
+    private Figura figuraEtq4;
+    private Figura figuraEtq5;
+    private Figura figuraEtq6;
+    private Figura figuraEtq7;
+    private Figura figuraEtq8;
     
     //Constructor de la ventana Juego
     public JuegoView(){
@@ -179,88 +188,104 @@ public class JuegoView extends JFrame {
         layeredPane.add(etiqueta8, JLayeredPane.MODAL_LAYER);   
     }
     
-    public void setIconEtiqueta1(ImageIcon imagen){
+    public void setIconEtiqueta1(Figura imagen){
         etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq1 = imagen;
         estadoEtq1 = true;
     }
     
-    public void setIconEtiqueta2(ImageIcon imagen){
+    public void setIconEtiqueta2(Figura imagen){
         etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq2 = imagen;
         estadoEtq2 = true;
     }
     
-    public void setIconEtiqueta3(ImageIcon imagen){
+    public void setIconEtiqueta3(Figura imagen){
         etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq3 = imagen;
         estadoEtq3 = true;
     }
     
-    public void setIconEtiqueta4(ImageIcon imagen){
+    public void setIconEtiqueta4(Figura imagen){
         etiqueta4.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq4 = imagen;
         estadoEtq4 = true;
     }
     
-    public void setIconEtiqueta5(ImageIcon imagen){
+    public void setIconEtiqueta5(Figura imagen){
         etiqueta5.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq5 = imagen;
         estadoEtq5 = true;
     }
     
-    public void setIconEtiqueta6(ImageIcon imagen){
+    public void setIconEtiqueta6(Figura imagen){
         etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq6 = imagen;
         estadoEtq6 = true;
     }
     
-    public void setIconEtiqueta7(ImageIcon imagen){
+    public void setIconEtiqueta7(Figura imagen){
         etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq7 = imagen;
         estadoEtq7 = true;
     }
     
-    public void setIconEtiqueta8(ImageIcon imagen){
+    public void setIconEtiqueta8(Figura imagen){
         etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+        figuraEtq8 = imagen;
         estadoEtq8 = true;
     }
     
-    public void setIconEtiqueta1Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta1Finalizar(){
         etiqueta1.setIcon(null);
+        figuraEtq1 = null;
         estadoEtq1 = false;
     }
     
-    public void setIconEtiqueta2Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta2Finalizar(){
         etiqueta2.setIcon(null);
+        figuraEtq2 = null;
         estadoEtq2 = false;
     }
     
-    public void setIconEtiqueta3Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta3Finalizar(){
         etiqueta3.setIcon(null);
+        figuraEtq3 = null;
         estadoEtq3 = false;
     }
     
-    public void setIconEtiqueta4Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta4Finalizar(){
         etiqueta4.setIcon(null);
+        figuraEtq4 = null;
         estadoEtq4 = false;
     }
     
-    public void setIconEtiqueta5Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta5Finalizar(){
         etiqueta5.setIcon(null);
+        figuraEtq5 = null;
         estadoEtq5 = false;
     }
     
-    public void setIconEtiqueta6Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta6Finalizar(){
         etiqueta6.setIcon(null);
+        figuraEtq6 = null;
         estadoEtq6 = false;
     }
     
-    public void setIconEtiqueta7Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta7Finalizar(){
         etiqueta7.setIcon(null);
+        figuraEtq7 = null;
         estadoEtq7 = false;
     }
     
-    public void setIconEtiqueta8Finalizar(ImageIcon imagen){
+    public void setIconEtiqueta8Finalizar(){
         etiqueta8.setIcon(null);
+        figuraEtq8 = null;
         estadoEtq8 = false;
     }
     
-    public void setIconEtiqueta(int id, ImageIcon imagen){
-        switch(id){
+    public void setIconEtiqueta(int id, Figura imagen){
+        /*switch(id){
             case 1 -> etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
             case 2 -> etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
             case 3 -> etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta3.getWidth(), etiqueta3.getHeight(), Image.SCALE_SMOOTH)));
@@ -269,35 +294,70 @@ public class JuegoView extends JFrame {
             case 6 -> etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta6.getWidth(), etiqueta6.getHeight(), Image.SCALE_SMOOTH)));
             case 7 -> etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta7.getWidth(), etiqueta7.getHeight(), Image.SCALE_SMOOTH)));
             case 8 -> etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta8.getWidth(), etiqueta8.getHeight(), Image.SCALE_SMOOTH)));  
+        }*/
+        
+        switch(id) { 
+            case 1 -> {
+                etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq1 = imagen;
+            }
+            case 2 -> {
+                etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq2 = imagen;
+            }
+            case 3 -> {
+                etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta3.getWidth(), etiqueta3.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq3 = imagen;
+            }
+            case 4 -> {
+                etiqueta4.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta4.getWidth(), etiqueta4.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq4 = imagen;
+            }
+            case 5 -> {
+                etiqueta5.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta5.getWidth(), etiqueta5.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq5 = imagen;
+            }
+            case 6 -> {
+                etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta6.getWidth(), etiqueta6.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq6 = imagen;
+            }
+            case 7 -> {
+                etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta7.getWidth(), etiqueta7.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq7 = imagen;
+            }
+            case 8 -> {
+                etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta8.getWidth(), etiqueta8.getHeight(), Image.SCALE_SMOOTH)));
+                figuraEtq8 = imagen;
+            }
         }
     }
     
-    public ImageIcon getIconEtiqueta(int id){
+    public Figura getIconEtiqueta(int id){
 
         switch(id) { 
             case 1 -> {
-                return (ImageIcon) etiqueta1.getIcon();
+                return figuraEtq1;
             }
             case 2 -> {
-                return (ImageIcon) etiqueta2.getIcon();
+                return figuraEtq2;
             }
             case 3 -> {
-                return (ImageIcon) etiqueta3.getIcon();
+                return figuraEtq3;
             }
             case 4 -> {
-                return (ImageIcon) etiqueta4.getIcon();
+                return figuraEtq4;
             }
             case 5 -> {
-                return (ImageIcon) etiqueta5.getIcon();
+                return figuraEtq5;
             }
             case 6 -> {
-                return (ImageIcon) etiqueta6.getIcon();
+                return figuraEtq6;
             }
             case 7 -> {
-                return (ImageIcon) etiqueta7.getIcon();
+                return figuraEtq7;
             }
             case 8 -> {
-                return (ImageIcon) etiqueta8.getIcon();
+                return figuraEtq8;
             }
         }
         return null;
@@ -396,36 +456,36 @@ public class JuegoView extends JFrame {
         return estadoEtq8;
     }
     
-    public ImageIcon getIconEtiqueta1(){
-        return (ImageIcon) etiqueta1.getIcon();
+    public Figura getIconEtiqueta1(){
+        return figuraEtq1;
     }
     
-    public ImageIcon getIconEtiqueta2(){
-        return (ImageIcon) etiqueta2.getIcon();
+    public Figura getIconEtiqueta2(){
+        return figuraEtq2;
     }
     
-    public ImageIcon getIconEtiqueta3(){
-        return (ImageIcon) etiqueta3.getIcon();
+    public Figura getIconEtiqueta3(){
+        return figuraEtq3;
     }
     
-    public ImageIcon getIconEtiqueta4(){
-        return (ImageIcon) etiqueta4.getIcon();
+    public Figura getIconEtiqueta4(){
+        return figuraEtq4;
     }
     
-    public ImageIcon getIconEtiqueta5(){
-        return (ImageIcon) etiqueta5.getIcon();
+    public Figura getIconEtiqueta5(){
+        return figuraEtq5;
     }
     
-    public ImageIcon getIconEtiqueta6(){
-        return (ImageIcon) etiqueta6.getIcon();
+    public Figura getIconEtiqueta6(){
+        return figuraEtq6;
     }
     
-    public ImageIcon getIconEtiqueta7(){
-        return (ImageIcon) etiqueta7.getIcon();
+    public Figura getIconEtiqueta7(){
+        return figuraEtq7;
     }
     
-    public ImageIcon getIconEtiqueta8(){
-        return (ImageIcon) etiqueta8.getIcon();
+    public Figura getIconEtiqueta8(){
+        return figuraEtq8;
     }
     
     public void setIconEtiquetaVida1(ImageIcon imagen){

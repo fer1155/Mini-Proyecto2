@@ -6,8 +6,8 @@ public class JuegoModel {
     public JuegoModel() {
     }
     
-    public Figura crearFigura(int id1, String imagen1){
-        Figura figura = new Figura(id1, imagen1);
+    public Figura crearFigura(String imagen1, int id1){
+        Figura figura = new Figura(imagen1, id1);
         return figura;         
     }
     
@@ -26,22 +26,22 @@ public class JuegoModel {
         private ImageIcon figura;
         private ImageIcon figura2;
         
-        public Figura(int id, String imagen){
+        public Figura(String filename, int id) {
+            super(filename);
             this.id = id;
-            figura = new ImageIcon(imagen);
         }
         
         public Figura(int id, ImageIcon asignarId){
             this.id = id;
             figura2 = asignarId;
         }
-        
-        public int getId(){
+
+        public int getID() {
             return id;
         }
-        
-        public ImageIcon getImagen(){
-            return figura;
+
+        public void setID(int id) {
+            this.id = id;
         }
     }
     
