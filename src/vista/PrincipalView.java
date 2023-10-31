@@ -3,10 +3,6 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-<<<<<<< HEAD
-import java.awt.event.ActionEvent;
-=======
->>>>>>> develop
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,19 +18,10 @@ public class PrincipalView extends JFrame {
     private JPanel panel;
     private ImageIcon imagenFondo;
     private JLabel titulo;
-<<<<<<< HEAD
-
-    private ImageIcon imagenSoldador;
-    private JButton boton1;
-    private JButton boton2;
-    private JButton boton3;
-    
-
-  
-=======
     private ImageIcon imagenSoldador;
     private JButton botonFuncion;
     private JButton botonJuego;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private JButton boton2;
 >>>>>>> develop
@@ -42,6 +29,10 @@ public class PrincipalView extends JFrame {
     private JButton botonInstrucciones;
 >>>>>>> develop
     
+=======
+    private JButton botonInstrucciones;
+
+>>>>>>> develop
     //Constructor de la ventana Principal
     public PrincipalView(){
         this.setTitle("Adosados");
@@ -58,6 +49,7 @@ public class PrincipalView extends JFrame {
         establecerTitulo();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         establecerSoldador();
         establecerBoton1();
@@ -70,10 +62,12 @@ public class PrincipalView extends JFrame {
 =======
         establecerBotonInstrucciones();
 >>>>>>> develop
+=======
+        establecerBotonInstrucciones();
+>>>>>>> develop
         establecerImagen();
         establecerBotonFuncion();
         establecerBotonJuego();
->>>>>>> develop
     }
     
     private void establecerLayeredPanel() {
@@ -104,24 +98,6 @@ public class PrincipalView extends JFrame {
         titulo.setFont(new Font("Bernard MT Condensed", 1, 85));
         layeredPane.add(titulo, JLayeredPane.MODAL_LAYER);    
     }
-<<<<<<< HEAD
- 
-    private void establecerBoton1() {
-        boton1 = new JButton("JUGAR");
-        boton1.setBounds(455, 265, 180, 60); 
-        boton1.setForeground(Color.WHITE);
-        boton1.setFont(new Font("Bernard MT Condensed", 0, 28));
-        Color colorFondoBtn1 = new Color(78, 39, 0);
-        boton1.setBackground(colorFondoBtn1);
-        Color colorBorde2 = new Color(94, 94, 94);
-        boton1.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
-        layeredPane.add(boton1, JLayeredPane.MODAL_LAYER);
-        boton1.setFocusPainted(false);
-    }
-    
-    private void establecerBoton2() {
-        boton2 = new JButton("¿COMO JUGAR?");
-=======
 
     private void establecerImagen() {
         imagenSoldador = new ImageIcon("soldador.png");
@@ -158,6 +134,7 @@ public class PrincipalView extends JFrame {
     }
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void establecerBoton2() {
         boton2 = new JButton("¿COMO JUGAR?");
         boton2.setFocusPainted(false);
@@ -166,12 +143,15 @@ public class PrincipalView extends JFrame {
         boton2.setForeground(Color.WHITE);
         boton2.setFont(new Font("Bernard MT Condensed", 0, 28));
 =======
+=======
+>>>>>>> develop
     private void establecerBotonInstrucciones() {
         botonInstrucciones = new JButton("¿COMO JUGAR?");
         botonInstrucciones.setFocusPainted(false);
         botonInstrucciones.setBounds(310, 350, 230, 60); 
         botonInstrucciones.setForeground(Color.WHITE);
         botonInstrucciones.setFont(new Font("Bernard MT Condensed", 0, 28));
+<<<<<<< HEAD
 >>>>>>> develop
         Color colorFondoBtn2 = new Color(78, 39, 0);
         botonInstrucciones.setBackground(colorFondoBtn2);
@@ -217,6 +197,13 @@ public class PrincipalView extends JFrame {
         layeredPane.add(botonInstrucciones, JLayeredPane.MODAL_LAYER); 
 >>>>>>> develop
     }
+=======
+        Color colorFondoBtn2 = new Color(78, 39, 0);
+        botonInstrucciones.setBackground(colorFondoBtn2);
+        Color colorBorde2 = new Color(94, 94, 94);
+        botonInstrucciones.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
+        layeredPane.add(botonInstrucciones, JLayeredPane.MODAL_LAYER); 
+>>>>>>> develop
     
     public void addBtnFuncionListener(ActionListener listenControl){
         botonFuncion.addActionListener(listenControl);
@@ -224,14 +211,20 @@ public class PrincipalView extends JFrame {
     
     public void addBtnJuegoListener(ActionListener listenControl){
         botonJuego.addActionListener(listenControl);
->>>>>>> develop
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 =======
     
+=======
+
+>>>>>>> develop
     public void addBtnInstruccionesListener(ActionListener listenControl){
         botonInstrucciones.addActionListener(listenControl);
     }
 }
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 >>>>>>> develop
