@@ -412,10 +412,12 @@ public class JuegoController {
         public void mouseClicked(MouseEvent e) {
             if(muted == false) {
                 muted = true;
-                vista.setIconMuteActivado(vidaPerdida);
+                ImageIcon off = new ImageIcon ("off.png");
+                vista.setIconMuteActivado(off);
             }else{
                 muted = false;
-                vista.setIconMuteDesactivado(figura1);
+                ImageIcon on = new ImageIcon ("on.png");
+                vista.setIconMuteDesactivado(on);
             } 
         }
     }
