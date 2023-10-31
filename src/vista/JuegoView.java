@@ -3,6 +3,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -100,16 +102,16 @@ public class JuegoView extends JFrame {
         layeredPane.add(etiquetaSonido, JLayeredPane.MODAL_LAYER);
     }
     
-    public void addBtnJuegoListener(MouseListener listenControl){
-        etiquetaBotonJuego.addMouseListener(listenControl);
+    public void addBtnJuegoListener(ActionListener listenControl){
+        etiquetaBotonJuego.addActionListener(listenControl);
     }
     
     public void addBtnJuegoListener(KeyListener listenControl){
         etiquetaBotonJuego.addKeyListener(listenControl);
     }
     
-    public void addBtnSaliListener(MouseListener listenControl){
-        botonSalir.addMouseListener(listenControl);
+    public void addBtnSaliListener(ActionListener listenControl){
+        botonSalir.addActionListener(listenControl);
     }
     
     public void addBtnSonidoListener(MouseListener listenControl){

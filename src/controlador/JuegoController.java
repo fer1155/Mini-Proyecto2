@@ -1,5 +1,7 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -292,9 +294,9 @@ public class JuegoController {
         Collections.shuffle(etiquetasConImagen);
     }
     
-    class btonJuegoListener extends MouseAdapter {
+    class btonJuegoListener implements ActionListener {
         @Override
-        public void mouseClicked(MouseEvent e) {
+        public void actionPerformed(ActionEvent e) {
             if(hayFallo == true){
                 limpiar();
                 tarea.cancel();
@@ -386,103 +388,13 @@ public class JuegoController {
     
     class btonJuegoListener2 extends KeyAdapter{
         @Override
-        public void keyTyped(KeyEvent e) {
-            if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                if(hayFallo == true){
-                    limpiar();
-                    tarea.cancel();
-                    timer.cancel();
-
-                    switch(numFiguras) { 
-                        case 3 -> {
-                            numFiguras = 4;
-                            aumentarPuntaje(5);
-                            tiempoDeterminarFallo = 5000;
-                            tiempoTransicion = 6000;
-                        }
-                        case 4 -> {
-                            numFiguras = 5;
-                            aumentarPuntaje(10);
-                            tiempoDeterminarFallo = 4000;
-                            tiempoTransicion = 5000;
-                        }
-                        case 5 -> {
-                            numFiguras = 6;
-                            aumentarPuntaje(15);
-                            tiempoDeterminarFallo = 3000;
-                            tiempoTransicion = 4000;
-                        }
-                        case 6 -> {
-                            numFiguras = 7;
-                            aumentarPuntaje(20);
-                            tiempoDeterminarFallo = 3000;
-                            tiempoTransicion = 4000;
-                        }
-                        case 7 -> {
-                            numFiguras = 8;
-                            aumentarPuntaje(25);
-                            tiempoDeterminarFallo = 2000;
-                            tiempoTransicion = 3000;
-                        }
-                        case 8 -> {
-                            numFiguras = 8;
-                            aumentarPuntaje(30);
-                            tiempoDeterminarFallo = 1000;
-                            tiempoTransicion = 2000;
-                        }
-                    }
-                    ronda.aumentarAciertos();
-                    iniciarJuegoOtraVezAcierto();  //Agrege esta línea para reiniciar el juego
-                }else if(hayFallo == false){
-                    tarea.cancel();
-                    timer.cancel();
-                    imagenesActivas.add(figura1);
-                    limpiar();
-                    
-                    switch(numFiguras) { 
-                        case 3 -> {
-                            numFiguras = 3;
-                            tiempoDeterminarFallo = 5000;
-                            tiempoTransicion = 6000;
-                        }
-                        case 4 -> {
-                            numFiguras = 3;
-                            tiempoDeterminarFallo = 5000;
-                            tiempoTransicion = 6000;
-                        }
-                        case 5 -> {
-                            numFiguras = 4;
-                            tiempoDeterminarFallo = 4000;
-                            tiempoTransicion = 5000;
-                        }
-                        case 6 -> {
-                            numFiguras = 5;
-                            tiempoDeterminarFallo = 3000;
-                            tiempoTransicion = 4000;
-                            
-                        }
-                        case 7 -> {
-                            numFiguras = 6;
-                            tiempoDeterminarFallo = 3000;
-                            tiempoTransicion = 4000;
-                            
-                        }
-                        case 8 -> {
-                            numFiguras = 7;
-                            tiempoDeterminarFallo = 2000;
-                            tiempoTransicion = 3000;
-                        }
-                    }
-                    ronda.aumentarFallos();
-                    iniciarJuegoOtraVezFallo(); 
-                }
-            }
+        public void keyPressed(KeyEvent e) {
         }
     }   
     
-    class btonSalirListener extends MouseAdapter {
+    class btonSalirListener implements ActionListener {
         @Override
-        public void mouseClicked(MouseEvent e) {
+        public void actionPerformed(ActionEvent e) {
             tarea.cancel();
             timer.cancel();
             tarea2.cancel();
