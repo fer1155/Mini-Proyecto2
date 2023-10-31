@@ -22,7 +22,7 @@ public class PrincipalView extends JFrame {
     private JButton botonFuncion;
     private JButton botonJuego;
     private JButton botonInstrucciones;
-    
+
     //Constructor de la ventana Principal
     public PrincipalView(){
         this.setTitle("Adosados");
@@ -118,7 +118,6 @@ public class PrincipalView extends JFrame {
         botonInstrucciones.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
         layeredPane.add(botonInstrucciones, JLayeredPane.MODAL_LAYER); 
     }
-    
     public void addBtnFuncionListener(ActionListener listenControl){
         botonFuncion.addActionListener(listenControl);
     }
@@ -126,7 +125,7 @@ public class PrincipalView extends JFrame {
     public void addBtnJuegoListener(ActionListener listenControl){
         botonJuego.addActionListener(listenControl);
     }
-    
+
     public void addBtnInstruccionesListener(ActionListener listenControl){
         botonInstrucciones.addActionListener(listenControl);
     }
