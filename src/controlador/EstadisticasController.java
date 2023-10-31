@@ -1,11 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import modelo.EstadisticasModel;
+import modelo.PrincipalModel;
 import vista.EstadisticasView;
+import vista.PrincipalView;
 
 public class EstadisticasController {
 
@@ -16,7 +16,30 @@ public class EstadisticasController {
         this.vista = vista;
         this.modelo = modelo;
         
+        vista.setAciertos(modelo.getAciertos());
+        vista.setFallos(modelo.getFallos());
+        vista.setPuntaje(modelo.getPuntaje());
+        
         vista.setVisible(true);
+        
+        this.vista.addBtnSaliListener(new ventanaListener());
+        this.vista.addBtnVolveraJugarListener(new ventanaListener2());
     }
     
+    class ventanaListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+           System.exit(0);
+        }
+    }
+    
+    class ventanaListener2 extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            PrincipalView vistaPrincipal = new PrincipalView();
+            PrincipalModel modeloPrincipal = new PrincipalModel();
+            PrincipalController controlador = new PrincipalController(vistaPrincipal, modeloPrincipal);
+            vista.dispose();
+        }
+    }
 }
