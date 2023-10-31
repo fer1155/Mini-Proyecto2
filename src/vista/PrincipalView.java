@@ -21,7 +21,7 @@ public class PrincipalView extends JFrame {
     private ImageIcon imagenSoldador;
     private JButton botonFuncion;
     private JButton botonJuego;
-    private JButton boton2;
+    private JButton botonInstrucciones;
     
     //Constructor de la ventana Principal
     public PrincipalView(){
@@ -37,7 +37,7 @@ public class PrincipalView extends JFrame {
         establecerPanel();
         establecerFondo();
         establecerTitulo();
-        establecerBoton2();
+        establecerBotonInstrucciones();
         establecerImagen();
         establecerBotonFuncion();
         establecerBotonJuego();
@@ -66,8 +66,6 @@ public class PrincipalView extends JFrame {
     private void establecerTitulo() {
         titulo = new JLabel("ADOSADOS");
         titulo.setBounds(265, 20, 530, 120);
-        //titulo.setOpaque(true); 
-        //titulo.setBackground(Color.WHITE);
         Color colorLetra = new Color(78, 39, 0);
         titulo.setForeground(colorLetra);
         titulo.setFont(new Font("Bernard MT Condensed", 1, 85));
@@ -78,7 +76,7 @@ public class PrincipalView extends JFrame {
         imagenSoldador = new ImageIcon("soldador.png");
         JLabel etiquetaImg1 = new JLabel();
         etiquetaImg1.setBounds(0, 200, 360, 390);
-        etiquetaImg1.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
+        etiquetaImg1.setIcon(new ImageIcon(imagenSoldador.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaImg1, JLayeredPane.MODAL_LAYER);
     }
     
@@ -108,17 +106,17 @@ public class PrincipalView extends JFrame {
         layeredPane.add(botonJuego, JLayeredPane.MODAL_LAYER);
     }
   
-    private void establecerBoton2() {
-        boton2 = new JButton("¿COMO JUGAR?");
-        boton2.setFocusPainted(false);
-        boton2.setBounds(310, 350, 230, 60); 
-        boton2.setForeground(Color.WHITE);
-        boton2.setFont(new Font("Bernard MT Condensed", 0, 28));
+    private void establecerBotonInstrucciones() {
+        botonInstrucciones = new JButton("¿COMO JUGAR?");
+        botonInstrucciones.setFocusPainted(false);
+        botonInstrucciones.setBounds(310, 350, 230, 60); 
+        botonInstrucciones.setForeground(Color.WHITE);
+        botonInstrucciones.setFont(new Font("Bernard MT Condensed", 0, 28));
         Color colorFondoBtn2 = new Color(78, 39, 0);
-        boton2.setBackground(colorFondoBtn2);
+        botonInstrucciones.setBackground(colorFondoBtn2);
         Color colorBorde2 = new Color(94, 94, 94);
-        boton2.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
-        layeredPane.add(boton2, JLayeredPane.MODAL_LAYER); 
+        botonInstrucciones.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
+        layeredPane.add(botonInstrucciones, JLayeredPane.MODAL_LAYER); 
     }
     
     public void addBtnFuncionListener(ActionListener listenControl){
@@ -127,5 +125,9 @@ public class PrincipalView extends JFrame {
     
     public void addBtnJuegoListener(ActionListener listenControl){
         botonJuego.addActionListener(listenControl);
+    }
+    
+    public void addBtnInstruccionesListener(ActionListener listenControl){
+        botonInstrucciones.addActionListener(listenControl);
     }
 }
