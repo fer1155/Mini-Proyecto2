@@ -6,13 +6,8 @@ public class JuegoModel {
     public JuegoModel() {
     }
     
-    public Figura crearFigura(int id, String imagen){
-        Figura figura = new Figura(id, imagen);
-        return figura;         
-    }
-    
-    public Figura crearFigura(int id, ImageIcon imagen){
-        Figura figura = new Figura(id, imagen);
+    public Figura crearFigura(String imagen1, int id1){
+        Figura figura = new Figura(imagen1, id1);
         return figura;         
     }
     
@@ -23,33 +18,32 @@ public class JuegoModel {
     
     public class Figura extends ImageIcon{
         private int id;
-        private ImageIcon figura;
-        private ImageIcon figura2;
         
-        public Figura(int id, String imagen){
+        public Figura(String filename, int id) {
+            super(filename);
             this.id = id;
-            figura = new ImageIcon(imagen);
         }
         
-        public Figura(int id,ImageIcon asignarId){
-            this.id = id;
-            figura2 = asignarId;
-        }
-        
-        public int getId(){
+        public int getID() {
             return id;
         }
-        
-        public ImageIcon getImagen(){
-            return figura;
+
+        public void setID(int id) {
+            this.id = id;
         }
     }
     
     public class Ronda{
         private int vidas;
+        private int puntaje;
+        private int aciertos;
+        private int fallos;
         
         public Ronda() {
             vidas = 3;
+            puntaje = 0;
+            aciertos = 0;
+            fallos = 0;
         }
         
         public void restarVida(){
@@ -58,8 +52,32 @@ public class JuegoModel {
             }
         }
         
+        public void aumetarPuntaje(int puntajeAsumar){
+            puntaje += puntajeAsumar;
+        }
+        
+        public void aumentarAciertos(){
+            aciertos = aciertos + 1;
+        }
+        
+        public void aumentarFallos(){
+            fallos = fallos + 1;
+        }
+        
         public int getVidas(){
             return vidas;
+        }
+        
+        public int getPuntaje(){
+            return puntaje;
+        }
+        
+        public int getAciertos(){
+            return aciertos;
+        }
+        
+        public int getFallos(){
+            return fallos;
         }
     }
 }
