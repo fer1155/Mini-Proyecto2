@@ -117,7 +117,7 @@ public class PrincipalView extends JFrame {
         Color colorBorde2 = new Color(94, 94, 94);
         botonInstrucciones.setBorder(BorderFactory.createLineBorder(colorBorde2,3,true));
         layeredPane.add(botonInstrucciones, JLayeredPane.MODAL_LAYER); 
-    
+    }
     public void addBtnFuncionListener(ActionListener listenControl){
         botonFuncion.addActionListener(listenControl);
     }

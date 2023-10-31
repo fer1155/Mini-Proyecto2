@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/C:/Users/campe/OneDrive/Escritorio/Mini-Proyecto2/src/vista/PrincipalView.java</file>
-=======
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/modelo/JuegoModel.java</file>
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/controlador/JuegoController.java</file>
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/controlador/EstadisticasController.java</file>
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/vista/JuegoView.java</file>
->>>>>>> develop
-=======
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/modelo/JuegoModel.java</file>
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/controlador/JuegoController.java</file>
-            <file>file:/C:/Users/Fernando/Documents/NetBeansProjects/Miniproyecto%20No.2/src/vista/JuegoView.java</file>
->>>>>>> develop
-        </group>
+        <group/>
     </open-files>
 </project-private>
