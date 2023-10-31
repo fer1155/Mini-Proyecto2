@@ -59,7 +59,7 @@ public class EstadisticasView extends JFrame{
     }
 
     private void establecerFondo() {
-        imagenFondo = new ImageIcon("");
+        imagenFondo = new ImageIcon("fondo3.png");
         JLabel etiquetaFondo = new JLabel();
         etiquetaFondo.setBounds(0, 0, this.getWidth(), this.getHeight());
         etiquetaFondo.setIcon(new ImageIcon(imagenFondo.getImage().getScaledInstance(etiquetaFondo.getWidth(), etiquetaFondo.getHeight(), Image.SCALE_SMOOTH)));
@@ -68,52 +68,52 @@ public class EstadisticasView extends JFrame{
     
     private void establecerTitulo() {
         titulo = new JLabel("FIN DEL JUEGO");
-        titulo.setBounds(180, 20, 520, 100);
-        titulo.setOpaque(true); 
-        titulo.setBackground(Color.WHITE);
+        titulo.setBounds(350, 90, 520, 100);
+        //titulo.setOpaque(true); 
+        //titulo.setBackground(Color.WHITE);
         Color colorLetra = new Color(40, 28, 5);
         titulo.setForeground(colorLetra);
-        titulo.setFont(new Font("Verdana", 1, 40));
+        titulo.setFont(new Font("Bernard MT Condensed", 1, 40));
         layeredPane.add(titulo, JLayeredPane.MODAL_LAYER);    
     }
     
     private void establecerTxtAciertos() {
         aciertos = new JLabel("");
-        aciertos.setBounds(180, 140, 300, 100);
-        aciertos.setOpaque(true); 
-        aciertos.setBackground(Color.WHITE);
+        aciertos.setBounds(180, 160, 300, 100);
+        //aciertos.setOpaque(true); 
+        //aciertos.setBackground(Color.WHITE);
         Color colorLetra = new Color(40, 28, 5);
         aciertos.setForeground(colorLetra);
-        aciertos.setFont(new Font("Verdana", 1, 20));
+        aciertos.setFont(new Font("Bernard MT Condensed", 1, 30));
         layeredPane.add(aciertos, JLayeredPane.MODAL_LAYER);    
     }
     
     private void establecerTxtFallos() {
         fallos = new JLabel("");
-        fallos.setBounds(180, 240, 300, 100);
-        fallos.setOpaque(true); 
-        fallos.setBackground(Color.WHITE);
+        fallos.setBounds(180, 260, 300, 100);
+        //fallos.setOpaque(true); 
+        //fallos.setBackground(Color.WHITE);
         Color colorLetra = new Color(40, 28, 5);
         fallos.setForeground(colorLetra);
-        fallos.setFont(new Font("Verdana", 1, 20));
+        fallos.setFont(new Font("Bernard MT Condensed", 1, 30));
         layeredPane.add(fallos, JLayeredPane.MODAL_LAYER);    
     }
     
     private void establecerTxtPuntaje() {
         puntaje = new JLabel("");
-        puntaje.setBounds(180, 340, 300, 100);
-        puntaje.setOpaque(true); 
-        puntaje.setBackground(Color.WHITE);
+        puntaje.setBounds(180, 360, 300, 100);
+        //puntaje.setOpaque(true); 
+        //puntaje.setBackground(Color.WHITE);
         Color colorLetra = new Color(40, 28, 5);
         puntaje.setForeground(colorLetra);
-        puntaje.setFont(new Font("Verdana", 1, 20));
+        puntaje.setFont(new Font("Bernard MT Condensed", 1, 30));
         layeredPane.add(puntaje, JLayeredPane.MODAL_LAYER);    
     }
     
     private void establecerBotonSalir() {
         botonSalir = new JButton("Salir");
         botonSalir.setFocusPainted(false);
-        botonSalir.setBounds(300, 500, 110, 45); 
+        botonSalir.setBounds(280, 460, 110, 45); 
         botonSalir.setForeground(Color.WHITE);
         botonSalir.setFont(new Font("Britannic Bold", 0, 22));
         Color colorFondoBtn2 = new Color(232, 19, 19);
@@ -126,7 +126,7 @@ public class EstadisticasView extends JFrame{
     private void establecerBotonVolverAJugar() {
         botonVolverAJugar = new JButton("Volver a Jugar");
         botonVolverAJugar.setFocusPainted(false);
-        botonVolverAJugar.setBounds(500, 500, 300, 45); 
+        botonVolverAJugar.setBounds(430, 460, 210, 45); 
         botonVolverAJugar.setForeground(Color.WHITE);
         botonVolverAJugar.setFont(new Font("Britannic Bold", 0, 22));
         Color colorFondoBtn2 = new Color(232, 19, 19);
@@ -145,7 +145,7 @@ public class EstadisticasView extends JFrame{
     }
 
     public void setAciertos(int numAciertos) {
-        aciertos.setText("ACIERTOS :" + numAciertos);
+        aciertos.setText("ACIERTOS:" + numAciertos);
     }
 
     public void setFallos(int numFallos) {
