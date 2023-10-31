@@ -3,57 +3,32 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import javax.swing.border.Border;
 import modelo.JuegoModel.Figura;
 
 public class JuegoView extends JFrame {
     private JLayeredPane layeredPane;
     private JPanel panel;
+    private JButton etiquetaBotonJuego;
+    private JButton botonSalir;
+    private JLabel etiqueta1, etiqueta2, etiqueta3, etiqueta4, etiqueta5, etiqueta6, etiqueta7, etiqueta8, etiqueta9;
+    private JLabel etiquetaVida1, etiquetaVida2, etiquetaVida3;
+    private JLabel etiquetaSonido;
     private ImageIcon imagenFondo;
     private ImageIcon imagenBotonJuego;
-    private JLabel etiquetaBotonJuego;
-    private JLabel etiqueta1;
-    private JLabel etiqueta2;
-    private JLabel etiqueta3;
-    private JLabel etiqueta4;
-    private JLabel etiqueta5;
-    private JLabel etiqueta6;
-    private JLabel etiqueta7;
-    private JLabel etiqueta8;
-    private boolean estadoEtq1;
-    private boolean estadoEtq2;
-    private boolean estadoEtq3;
-    private boolean estadoEtq4;
-    private boolean estadoEtq5;
-    private boolean estadoEtq6;
-    private boolean estadoEtq7;
-    private boolean estadoEtq8;
-    private int idEtiqueta1, idEtiqueta2, idEtiqueta3, idEtiqueta4, idEtiqueta5, idEtiqueta6, idEtiqueta7, idEtiqueta8;
-    private ImageIcon imagenVida1;
-    private JLabel etiquetaVida1;
-    private ImageIcon imagenVida2;
-    private JLabel etiquetaVida2;
-    private ImageIcon imagenVida3;
-    private JLabel etiquetaVida3;
-    private Border bordeLineaNegra;
-    private Figura figuraEtq1;
-    private Figura figuraEtq2;
-    private Figura figuraEtq3;
-    private Figura figuraEtq4;
-    private Figura figuraEtq5;
-    private Figura figuraEtq6;
-    private Figura figuraEtq7;
-    private Figura figuraEtq8;
-    private JLabel etiqueta9;
-    private int puntaje = 0;
+    private ImageIcon imagenVida1, imagenVida2, imagenVida3;
+    private ImageIcon sonido;
+    private Figura figuraEtq1, figuraEtq2, figuraEtq3, figuraEtq4, figuraEtq5, figuraEtq6, figuraEtq7, figuraEtq8;
+    private boolean estadoEtq1, estadoEtq2, estadoEtq3, estadoEtq4, estadoEtq5, estadoEtq6, estadoEtq7, estadoEtq8;
     
     //Constructor de la ventana Juego
     public JuegoView(){
@@ -72,6 +47,8 @@ public class JuegoView extends JFrame {
         establecerEtiquetas();
         establecerVidas();
         establecerPuntaje();
+        establecerBotonSalir();
+        establecerBotonSonido();
     }
     
     private void establecerLayeredPanel() {
@@ -96,14 +73,105 @@ public class JuegoView extends JFrame {
     
     private void establecerBotonDelJuego() {
         imagenBotonJuego = new ImageIcon("fondo1.png");
-        etiquetaBotonJuego = new JLabel();
+        etiquetaBotonJuego = new JButton();
         etiquetaBotonJuego.setBounds(100, 40, 50, 50);
         etiquetaBotonJuego.setIcon(new ImageIcon(imagenBotonJuego.getImage().getScaledInstance(etiquetaBotonJuego.getWidth(), etiquetaBotonJuego.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaBotonJuego, JLayeredPane.MODAL_LAYER);
     }
     
+    private void establecerBotonSalir() {
+        botonSalir = new JButton("Salir");
+        botonSalir.setFocusPainted(false);
+        botonSalir.setBounds(480, 400, 110, 45); 
+        botonSalir.setForeground(Color.WHITE);
+        botonSalir.setFont(new Font("Britannic Bold", 0, 22));
+        Color colorFondoBtn2 = new Color(232, 19, 19);
+        botonSalir.setBackground(colorFondoBtn2);
+        Color colorBorde = new Color(94, 94, 94);
+        botonSalir.setBorder(BorderFactory.createLineBorder(colorBorde,3,true));
+        layeredPane.add(botonSalir, JLayeredPane.MODAL_LAYER);
+    }
+    
+    private void establecerBotonSonido() {
+        sonido = new ImageIcon("vida.png");
+        etiquetaSonido = new JLabel();
+        etiquetaSonido.setBounds(300, 450, 50, 50);
+        etiquetaSonido.setIcon(new ImageIcon(sonido.getImage().getScaledInstance(etiquetaSonido.getWidth(), etiquetaSonido.getHeight(), Image.SCALE_SMOOTH)));
+        layeredPane.add(etiquetaSonido, JLayeredPane.MODAL_LAYER);
+    }
+    
     public void addBtnJuegoListener(MouseListener listenControl){
         etiquetaBotonJuego.addMouseListener(listenControl);
+    }
+    
+    public void addBtnJuegoListener(KeyListener listenControl){
+        etiquetaBotonJuego.addKeyListener(listenControl);
+    }
+    
+    public void addBtnSaliListener(MouseListener listenControl){
+        botonSalir.addMouseListener(listenControl);
+    }
+    
+    public void addBtnSonidoListener(MouseListener listenControl){
+        etiquetaSonido.addMouseListener(listenControl);
+    }
+
+    private void establecerEtiquetas(){
+        etiqueta1 = new JLabel();
+        etiqueta1.setBounds(100, 100, 100, 100);
+        etiqueta1.setOpaque(true); 
+        etiqueta1.setBackground(Color.RED);
+        estadoEtq1 = false;
+        layeredPane.add(etiqueta1, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta2 = new JLabel();
+        etiqueta2.setBounds(100, 250, 100, 100);
+        etiqueta2.setOpaque(true); 
+        etiqueta2.setBackground(Color.RED);
+        estadoEtq2 = false;
+        layeredPane.add(etiqueta2, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta3 = new JLabel();
+        etiqueta3.setBounds(300, 100, 100, 100);
+        etiqueta3.setOpaque(true); 
+        etiqueta3.setBackground(Color.RED);
+        estadoEtq3 = false;
+        layeredPane.add(etiqueta3, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta4 = new JLabel();
+        etiqueta4.setBounds(300, 250, 100, 100);
+        etiqueta4.setOpaque(true); 
+        etiqueta4.setBackground(Color.RED);
+        estadoEtq4 = false;
+        layeredPane.add(etiqueta4, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta5 = new JLabel();
+        etiqueta5.setBounds(500, 100, 100, 100);
+        etiqueta5.setOpaque(true); 
+        etiqueta5.setBackground(Color.RED);
+        estadoEtq5 = false;
+        layeredPane.add(etiqueta5, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta6 = new JLabel();
+        etiqueta6.setBounds(500, 250, 100, 100);
+        etiqueta6.setOpaque(true); 
+        etiqueta6.setBackground(Color.RED);
+        estadoEtq6 = false;
+        layeredPane.add(etiqueta6, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta7 = new JLabel();
+        etiqueta7.setBounds(700, 100, 100, 100);
+        etiqueta7.setOpaque(true); 
+        etiqueta7.setBackground(Color.RED);
+        estadoEtq7 = false;
+        layeredPane.add(etiqueta7, JLayeredPane.MODAL_LAYER);
+        
+        etiqueta8 = new JLabel();
+        etiqueta8.setBounds(700, 250, 100, 100);
+        etiqueta8.setOpaque(true); 
+        etiqueta8.setBackground(Color.RED);
+        estadoEtq8 = false;
+        layeredPane.add(etiqueta8, JLayeredPane.MODAL_LAYER);   
     }
     
     private void establecerVidas() {
@@ -126,74 +194,8 @@ public class JuegoView extends JFrame {
         layeredPane.add(etiquetaVida3, JLayeredPane.MODAL_LAYER);
     }
     
-    private void establecerEtiquetas(){
-        etiqueta1 = new JLabel();
-        etiqueta1.setBounds(100, 100, 100, 100);
-        etiqueta1.setOpaque(true); 
-        etiqueta1.setBackground(Color.RED);
-        estadoEtq1 = false;
-        idEtiqueta1 = 1;
-        layeredPane.add(etiqueta1, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta2 = new JLabel();
-        etiqueta2.setBounds(100, 250, 100, 100);
-        etiqueta2.setOpaque(true); 
-        etiqueta2.setBackground(Color.RED);
-        estadoEtq2 = false;
-        idEtiqueta2 = 2;
-        layeredPane.add(etiqueta2, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta3 = new JLabel();
-        etiqueta3.setBounds(300, 100, 100, 100);
-        etiqueta3.setOpaque(true); 
-        etiqueta3.setBackground(Color.RED);
-        estadoEtq3 = false;
-        idEtiqueta3 = 3;
-        layeredPane.add(etiqueta3, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta4 = new JLabel();
-        etiqueta4.setBounds(300, 250, 100, 100);
-        etiqueta4.setOpaque(true); 
-        etiqueta4.setBackground(Color.RED);
-        estadoEtq4 = false;
-        idEtiqueta4 = 4;
-        layeredPane.add(etiqueta4, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta5 = new JLabel();
-        etiqueta5.setBounds(500, 100, 100, 100);
-        etiqueta5.setOpaque(true); 
-        etiqueta5.setBackground(Color.RED);
-        estadoEtq5 = false;
-        idEtiqueta5 = 5;
-        layeredPane.add(etiqueta5, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta6 = new JLabel();
-        etiqueta6.setBounds(500, 250, 100, 100);
-        etiqueta6.setOpaque(true); 
-        etiqueta6.setBackground(Color.RED);
-        estadoEtq6 = false;
-        idEtiqueta6 = 6;
-        layeredPane.add(etiqueta6, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta7 = new JLabel();
-        etiqueta7.setBounds(700, 100, 100, 100);
-        etiqueta7.setOpaque(true); 
-        etiqueta7.setBackground(Color.RED);
-        estadoEtq7 = false;
-        idEtiqueta7 = 7;
-        layeredPane.add(etiqueta7, JLayeredPane.MODAL_LAYER);
-        
-        etiqueta8 = new JLabel();
-        etiqueta8.setBounds(700, 250, 100, 100);
-        etiqueta8.setOpaque(true); 
-        etiqueta8.setBackground(Color.RED);
-        estadoEtq8 = false;
-        idEtiqueta8 = 8;
-        layeredPane.add(etiqueta8, JLayeredPane.MODAL_LAYER);   
-    }
-    
     private void establecerPuntaje() {
-        etiqueta9 = new JLabel("Score: " + puntaje);
+        etiqueta9 = new JLabel("Score: " + "0");
         etiqueta9.setBounds(180, 400, 150, 50);
         etiqueta9.setOpaque(true); 
         etiqueta9.setBackground(Color.WHITE);
@@ -301,17 +303,6 @@ public class JuegoView extends JFrame {
     }
     
     public void setIconEtiqueta(int id, Figura imagen){
-        /*switch(id){
-            case 1 -> etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
-            case 2 -> etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
-            case 3 -> etiqueta3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta3.getWidth(), etiqueta3.getHeight(), Image.SCALE_SMOOTH)));
-            case 4 -> etiqueta4.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta4.getWidth(), etiqueta4.getHeight(), Image.SCALE_SMOOTH)));
-            case 5 -> etiqueta5.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta5.getWidth(), etiqueta5.getHeight(), Image.SCALE_SMOOTH)));
-            case 6 -> etiqueta6.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta6.getWidth(), etiqueta6.getHeight(), Image.SCALE_SMOOTH)));
-            case 7 -> etiqueta7.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta7.getWidth(), etiqueta7.getHeight(), Image.SCALE_SMOOTH)));
-            case 8 -> etiqueta8.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta8.getWidth(), etiqueta8.getHeight(), Image.SCALE_SMOOTH)));  
-        }*/
-        
         switch(id) { 
             case 1 -> {
                 etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
@@ -349,7 +340,6 @@ public class JuegoView extends JFrame {
     }
     
     public Figura getIconEtiqueta(int id){
-
         switch(id) { 
             case 1 -> {
                 return figuraEtq1;
@@ -459,4 +449,11 @@ public class JuegoView extends JFrame {
         etiqueta9.setText("Puntaje: " + puntajeNuevo);
     }
     
+    public void setIconMuteActivado(ImageIcon imagen){
+        etiquetaSonido.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida3.getWidth(), etiquetaVida3.getHeight(), Image.SCALE_SMOOTH)));
+    }
+    
+    public void setIconMuteDesactivado(ImageIcon imagen){
+        etiquetaSonido.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida3.getWidth(), etiquetaVida3.getHeight(), Image.SCALE_SMOOTH)));
+    }
 }

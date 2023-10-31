@@ -1,11 +1,9 @@
 package controlador;
 
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,48 +25,41 @@ public class JuegoController {
     
     private JuegoView vista;
     private JuegoModel modelo;
-    private ArrayList<Figura> listaDeFigurasPrincipal;
-    private ArrayList<Figura> listaDeFigurasUsadas;
-    private ArrayList<Figura> listaDeFigurasTransicion;
-    private ArrayList<Figura> imagenesActivas;
-    private ArrayList<Integer> numerosUsados = new ArrayList<>();
-    private ArrayList<Integer> etiquetasConImagen;
-    Random random = new Random();
-    private Timer timer;
-    private int indiceImagen = 0;
-    private int indiceImagen2 = 0;
-    private Figura figura1, figura2,figura3, figura4, figura5, figura6;
-    private Figura figura1Id, figura2Id,figura3Id, figura4Id, figura5Id, figura6Id, figura7Id, figura8Id;
-    //private int idFigura1, idFigura2, idFigura3, idFigura4, idFigura5, idFigura6;
-    private boolean areEqual;
-    private boolean areEqual2;
-    private boolean areEqual3;
-    private Ronda ronda;
-    private boolean hayFallo;
-    private int numFiguras = 3;
-    private ImageIcon vidaPerdida;
     private EstadisticasView vistaEstadisticas;
     private EstadisticasModel modeloEstadisticas;
     private EstadisticasController controladorEstadisticas;
-    private Figura figura7;
-    private Figura figura8;
-    private Figura figura9;
-    private Figura figura10;
-    private Figura figuraRepetida;
-    private boolean quitarImagenRepetida = false; 
-    private TimerTask tarea; 
-    private Timer timer2;
-    private TimerTask tarea2;
+    private ArrayList<Figura> listaDeFigurasPrincipal, listaDeFigurasUsadas, listaDeFigurasTransicion;
+    private ArrayList<Figura> imagenesActivas = new ArrayList<>();;
+    private ArrayList<Integer> numerosUsados = new ArrayList<>();
+    private ArrayList<Integer> etiquetasConImagen;
+    private Figura figura1, figura2,figura3, figura4, figura5, figura6, figura7, figura8, figura9, figura10, figuraRepetida;
+    private Ronda ronda;
+    private int indiceImagen = 0, indiceImagen2 = 0;
+    private int numFiguras = 3;
     private int tiempoDeterminarFallo = 5000, tiempoTransicion = 6000;
+    private boolean hayFallo;
+    private boolean quitarImagenRepetida = false;
+    private boolean muted = false;
+    private ImageIcon vidaPerdida;
+    private Timer timer;
+    private Timer timer2;
+    private TimerTask tarea; 
+    private TimerTask tarea2;
+    Random random = new Random();
 
     public JuegoController(JuegoView vista, JuegoModel modelo) {
         this.vista = vista;
         this.modelo = modelo;
         
-        vidaPerdida = new ImageIcon("vidaPerdida.png");
         vista.setVisible(true);
+        
         ronda = new JuegoModel().crearRonda();
-        this.vista.addBtnJuegoListener(new ventanaListener());
+        this.vista.addBtnJuegoListener(new btonJuegoListener());
+        this.vista.addBtnJuegoListener(new btonJuegoListener2());
+        this.vista.addBtnSaliListener(new btonSalirListener());
+        this.vista.addBtnSonidoListener(new btonSonidoListener());
+        vidaPerdida = new ImageIcon("vidaPerdida.png");
+
         crearImagenes();
         iniciarJuego();
     }
@@ -82,20 +73,23 @@ public class JuegoController {
         hayFallo = false;
         tarea2.cancel();
         timer2.cancel();
-        reproducirSonido("acierto.wav");
+        if (muted == false) {
+            reproducirSonido("acierto.wav");
+        }
         colocarImagenes(numFiguras, 0);
-        transicionDeImagen(0); // Reinicia la transición de imágenes
+        transicionDeImagen(0); 
     }
     
     private void iniciarJuegoOtraVezFallo() {
         hayFallo = false;
         tarea2.cancel();
         timer2.cancel();
-        reproducirSonido("fallo.wav");
-        System.out.println("Se reiniciaaaaaaaa");
+        if (muted == false) {
+            reproducirSonido("fallo.wav");
+        }
         quitarVida();
         colocarImagenes(numFiguras, 0);
-        transicionDeImagen(0); // Reinicia la transición de imágenes   
+        transicionDeImagen(0);   
     }
     
     private void crearImagenes() {
@@ -124,10 +118,6 @@ public class JuegoController {
         listaDeFigurasPrincipal.add(figura10);
                
         Collections.shuffle(listaDeFigurasPrincipal);
-        
-        for(ImageIcon elemento : listaDeFigurasPrincipal) {
-            System.out.println(elemento);
-        }
     }
     
     private void colocarImagenes(int numeroDeImagenes, long delayMillis){
@@ -140,28 +130,14 @@ public class JuegoController {
         listaDeFigurasUsadas = new ArrayList<>();
         listaDeFigurasTransicion = new ArrayList<>();
         
-        System.out.println(numeroDeImagenes);
-        
         for(int i = 0; i < numeroDeImagenes; i++){
-            //Figura imagen1 = (Figura) listaDeFigurasPrincipal.get(i);
-            //listaDeFigurasUsadas.add(imagen1.getImagen());
             listaDeFigurasUsadas.add(listaDeFigurasPrincipal.get(i));
         }
                 
         for(int i = 0; i < numeroDeImagenes+2; i++){
-            //Figura imagen2 = (Figura) listaDeFigurasPrincipal.get(i);
-            //listaDeFigurasTransicion.add(imagen2.getImagen());
             listaDeFigurasTransicion.add(listaDeFigurasPrincipal.get(i));
         }
-        
-        for(Figura elemento : listaDeFigurasUsadas) {
-            System.out.println(elemento);
-        }
-        
-        for(Figura elemento : listaDeFigurasTransicion) {
-            System.out.println(elemento);
-        }
-        
+                
         int min = 1; // Número mínimo
         int max = 8; // Número máximo
 
@@ -178,65 +154,44 @@ public class JuegoController {
     }
     
     private void asignarImagenAEtiquetaRamdon(Figura figura){
-        
         while (!numerosUsados.isEmpty()) {
             // Genera un índice aleatorio dentro del rango de la lista
             int indiceAleatorio = random.nextInt(numerosUsados.size());
 
             // Obtiene y muestra el número aleatorio
             int numeroAleatorio = numerosUsados.get(indiceAleatorio);
-            System.out.println(numeroAleatorio);
             
             switch(numeroAleatorio) { 
                 case 1 -> {
                     vista.setIconEtiqueta1(figura);
-                    System.out.println(figura);
                 }
                 case 2 -> {
                     vista.setIconEtiqueta2(figura);
-                    System.out.println(figura);
                 }
                 case 3 -> {
                     vista.setIconEtiqueta3(figura);
-                    System.out.println(figura);
                 }
                 case 4 -> {
                     vista.setIconEtiqueta4(figura);
-                    System.out.println(figura);
                 }
                 case 5 -> {
                     vista.setIconEtiqueta5(figura);
-                    System.out.println(figura);
                 }
                 case 6 -> {
                     vista.setIconEtiqueta6(figura);
-                    System.out.println(figura);
                 }
                 case 7 -> {
                     vista.setIconEtiqueta7(figura);
-                    System.out.println(figura);
                 }
                 case 8 -> {
                     vista.setIconEtiqueta8(figura);
-                    System.out.println(figura);
                 }
             }
 
             // Elimina el número de la lista para que no se repita
             numerosUsados.remove(indiceAleatorio);
             break;
-        }        
-        /*
-        switch(numeroAleatorio){
-            case 0 -> vista.setIconEtiqueta1(figura);
-            case 1 -> vista.setIconEtiqueta2(figura);
-            case 2 -> vista.setIconEtiqueta3(figura);
-            case 3 -> vista.setIconEtiqueta4(figura);
-            case 4 -> vista.setIconEtiqueta5(figura);
-            case 5 -> vista.setIconEtiqueta6(figura);
-            case 6 -> vista.setIconEtiqueta7(figura);
-            case 7 -> vista.setIconEtiqueta8(figura);   
-        }*/
+        }
     }   
 
     private void transicionDeImagen(long delayMillis) {
@@ -253,7 +208,6 @@ public class JuegoController {
                 public void run() {
                     if(indiceImagen < etiquetasConImagen.size()) {
                         int elemento = etiquetasConImagen.get(indiceImagen);
-                        System.out.println("La actual era: " + vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
                         quitarImagenRepetida(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
                         mostrarSiguienteImagen(elemento);
                         devolverImagenRepetida();
@@ -265,57 +219,26 @@ public class JuegoController {
                     }
                 }
             };
-
             timer.schedule(tarea, 2000, tiempoTransicion);
             determinarFallo();
         }else{
             tarea2.cancel();
             timer2.cancel();
-                
-            System.out.println("(\"No te quedan vidas\")");
             vista.dispose();
                 
             vistaEstadisticas = new EstadisticasView();
-            modeloEstadisticas = new EstadisticasModel();
+            modeloEstadisticas = new EstadisticasModel(ronda.getPuntaje(), ronda.getAciertos(), ronda.getFallos());
             controladorEstadisticas = new EstadisticasController(vistaEstadisticas, modeloEstadisticas);
         }
-        
-        
-        
-        /*
-        //Configura un temporizador para cambiar las imágenes cada 4 segundos        
-        timer = new Timer(4000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                determinarFallo();
-                if(indiceImagen < etiquetasConImagen.size()) {
-                    int elemento = etiquetasConImagen.get(indiceImagen);
-                    System.out.println("La actual era: " + vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
-                    quitarImagenRepetida(vista.getIconEtiqueta(etiquetasConImagen.get(indiceImagen)));
-                    mostrarSiguienteImagen(elemento);
-                    devolverImagenRepetida();
-                    indiceImagen++;
-                    indiceImagen2++;
-                }else if(indiceImagen >= etiquetasConImagen.size()){
-                    indiceImagen = 0;
-                    indiceImagen2 = 0;
-                }
-            }
-        });
-        timer.setRepeats(true); // Para que el temporizador se ejecute periódicamente
-        timer.start();   */ 
     }
     
     private void mostrarSiguienteImagen(int id) {
-        reproducirSonido("cambio.wav");
+        if (muted == false) {
+            reproducirSonido("cambio.wav");
+        }
         if (indiceImagen2 < listaDeFigurasTransicion.size()) {
             Collections.shuffle(listaDeFigurasTransicion);
-            for(Figura elemento : listaDeFigurasTransicion) {
-                System.out.println(elemento);
-            }
             vista.setIconEtiqueta(id, listaDeFigurasTransicion.get(indiceImagen2));
-            //System.out.println(id);
-            //System.out.println("Se cambio a: " + listaDeFigurasTransicion.get(indiceImagen2));
             verificarImagenes();
         }
     }
@@ -325,14 +248,11 @@ public class JuegoController {
             if(imagenActual.getID() == elemento.getID()){
                 quitarImagenRepetida = true;
                 figuraRepetida = elemento;
-            }else{
-                System.out.println("No se quito");
             }
         }
         
         if(quitarImagenRepetida == true){
             listaDeFigurasTransicion.remove(figuraRepetida);
-            System.out.println("Se quito:"+ figuraRepetida );
         }
     }
     
@@ -372,14 +292,14 @@ public class JuegoController {
         Collections.shuffle(etiquetasConImagen);
     }
     
-    class ventanaListener extends MouseAdapter {
+    class btonJuegoListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
             if(hayFallo == true){
                 limpiar();
                 tarea.cancel();
                 timer.cancel();
-
+                
                 switch(numFiguras) { 
                     case 3 -> {
                         numFiguras = 4;
@@ -418,123 +338,107 @@ public class JuegoController {
                         tiempoTransicion = 2000;
                     }
                 }
-                iniciarJuegoOtraVezAcierto();  // Agrega esta línea para reiniciar el juego
-            }else{
-                System.out.println("No pulsaste bien :C");
+                ronda.aumentarAciertos();
+                iniciarJuegoOtraVezAcierto();  //Agrege esta línea para reiniciar el juego
+            }else if(hayFallo == false){
+                tarea.cancel();
+                timer.cancel();
+                imagenesActivas.add(figura1);
+                limpiar();
+                
+                switch(numFiguras) {
+                    case 3 -> {
+                        numFiguras = 3;
+                        tiempoDeterminarFallo = 5000;
+                        tiempoTransicion = 6000;
+                    }
+                    case 4 -> {
+                        numFiguras = 3;
+                        tiempoDeterminarFallo = 5000;
+                        tiempoTransicion = 6000;
+                    }
+                    case 5 -> {
+                        numFiguras = 4;
+                        tiempoDeterminarFallo = 4000;
+                        tiempoTransicion = 5000;
+                    }
+                    case 6 -> {
+                        numFiguras = 5;
+                        tiempoDeterminarFallo = 3000;
+                        tiempoTransicion = 4000;
+                    }
+                    case 7 -> {
+                        numFiguras = 6;
+                        tiempoDeterminarFallo = 3000;
+                        tiempoTransicion = 4000;
+                    }
+                    case 8 -> {
+                        numFiguras = 7;
+                        tiempoDeterminarFallo = 2000;
+                        tiempoTransicion = 3000;
+                    }
+                }
+                ronda.aumentarFallos();
+                iniciarJuegoOtraVezFallo(); 
             }   
         }
     }
     
-    private void verificarImagenes(){        
-        imagenesActivas = new ArrayList<>();
-        obtenerImagenesActivas();
-        for(int i = 0; i < imagenesActivas.size(); i++) {
-            for(int j = i + 1; j < imagenesActivas.size(); j++) {
-                if (imagenesActivas.get(i).getID() == imagenesActivas.get(j).getID() ){
-                    hayFallo = true;
-                    System.out.println("Hay fallo"); 
-                }
-            }
-        }
-    }
-    
-    private void obtenerImagenesActivas(){
-        imagenesActivas = new ArrayList<>();
-
-        imagenesActivas.add(vista.getIconEtiqueta1());
-        imagenesActivas.add(vista.getIconEtiqueta2());
-        imagenesActivas.add(vista.getIconEtiqueta3());
-        imagenesActivas.add(vista.getIconEtiqueta4());
-        imagenesActivas.add(vista.getIconEtiqueta5());
-        imagenesActivas.add(vista.getIconEtiqueta6());
-        imagenesActivas.add(vista.getIconEtiqueta7());
-        imagenesActivas.add(vista.getIconEtiqueta8());
-        
-        for (int i = 0; i < imagenesActivas.size(); i++) {
-            if (imagenesActivas.get(i) == null) {
-                imagenesActivas.remove(i);
-                i--; // Reduce el índice para seguir comprobando el siguiente elemento.
-            }
-        }
-    }
-    
-    public void limpiar(){
-        /*
-        Figura figuraVacia = new JuegoModel().crearFigura("figuraTrasparente.png", 0);
-        vista.setIconEtiqueta1Finalizar(figuraVacia);
-        vista.setIconEtiqueta2Finalizar(figuraVacia);
-        vista.setIconEtiqueta3Finalizar(figuraVacia);
-        vista.setIconEtiqueta4Finalizar(figuraVacia);
-        vista.setIconEtiqueta5Finalizar(figuraVacia);
-        vista.setIconEtiqueta6Finalizar(figuraVacia);
-        vista.setIconEtiqueta7Finalizar(figuraVacia);
-        vista.setIconEtiqueta8Finalizar(figuraVacia);*/
-        
-        vista.setIconEtiqueta1Finalizar();
-        vista.setIconEtiqueta2Finalizar();
-        vista.setIconEtiqueta3Finalizar();
-        vista.setIconEtiqueta4Finalizar();
-        vista.setIconEtiqueta5Finalizar();
-        vista.setIconEtiqueta6Finalizar();
-        vista.setIconEtiqueta7Finalizar();
-        vista.setIconEtiqueta8Finalizar();
-        
-        //listaDeFigurasPrincipal.clear();
-        listaDeFigurasUsadas.clear();
-        listaDeFigurasTransicion.clear();
-        etiquetasConImagen.clear();
-        imagenesActivas.clear();
-        numerosUsados.clear();
-        
-        indiceImagen = 0;
-        indiceImagen2 = 0;
-    }
-    
-    public void determinarFallo(){
-        /*if(hayFallo == true){
-            
-            if (timer != null && timer.isRunning()) {
-                timer.stop();
-                timer.cancel();// Detiene el temporizador si está en ejecución
-            }
-            tarea.cancel();
-            timer.cancel();
-
-            System.out.println("Se limpiooooo");
-            limpiar();
-            switch (numFiguras) {
-                case 3 -> numFiguras = 3;
-                case 4 -> numFiguras = 3;
-                case 5 -> numFiguras = 4;
-                case 6 -> numFiguras = 5;
-                case 7 -> numFiguras = 6;
-                case 8 -> numFiguras = 7;
-            }
-            
-            iniciarJuegoOtraVezFallo(); 
-        }else{
-            System.out.println("No hubo cambio aun");
-        }*/
-        
-        timer2 = new Timer();
-        tarea2 = new TimerTask() {
-            @Override
-            public void run() {
+    class btonJuegoListener2 extends KeyAdapter{
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                 if(hayFallo == true){
+                    limpiar();
                     tarea.cancel();
                     timer.cancel();
 
-                    System.out.println("Se limpiooooo");
+                    switch(numFiguras) { 
+                        case 3 -> {
+                            numFiguras = 4;
+                            aumentarPuntaje(5);
+                            tiempoDeterminarFallo = 5000;
+                            tiempoTransicion = 6000;
+                        }
+                        case 4 -> {
+                            numFiguras = 5;
+                            aumentarPuntaje(10);
+                            tiempoDeterminarFallo = 4000;
+                            tiempoTransicion = 5000;
+                        }
+                        case 5 -> {
+                            numFiguras = 6;
+                            aumentarPuntaje(15);
+                            tiempoDeterminarFallo = 3000;
+                            tiempoTransicion = 4000;
+                        }
+                        case 6 -> {
+                            numFiguras = 7;
+                            aumentarPuntaje(20);
+                            tiempoDeterminarFallo = 3000;
+                            tiempoTransicion = 4000;
+                        }
+                        case 7 -> {
+                            numFiguras = 8;
+                            aumentarPuntaje(25);
+                            tiempoDeterminarFallo = 2000;
+                            tiempoTransicion = 3000;
+                        }
+                        case 8 -> {
+                            numFiguras = 8;
+                            aumentarPuntaje(30);
+                            tiempoDeterminarFallo = 1000;
+                            tiempoTransicion = 2000;
+                        }
+                    }
+                    ronda.aumentarAciertos();
+                    iniciarJuegoOtraVezAcierto();  //Agrege esta línea para reiniciar el juego
+                }else if(hayFallo == false){
+                    tarea.cancel();
+                    timer.cancel();
+                    imagenesActivas.add(figura1);
                     limpiar();
-                    /*
-                    switch (numFiguras) {
-                        case 3 -> numFiguras = 3;
-                        case 4 -> numFiguras = 3;
-                        case 5 -> numFiguras = 4;
-                        case 6 -> numFiguras = 5;
-                        case 7 -> numFiguras = 6;
-                        case 8 -> numFiguras = 7;
-                    }*/
+                    
                     switch(numFiguras) { 
                         case 3 -> {
                             numFiguras = 3;
@@ -569,13 +473,140 @@ public class JuegoController {
                             tiempoTransicion = 3000;
                         }
                     }
+                    ronda.aumentarFallos();
                     iniciarJuegoOtraVezFallo(); 
-                }else{
-                    System.out.println("No hubo cambio aun");
-                } 
+                }
+            }
+        }
+    }   
+    
+    class btonSalirListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            tarea.cancel();
+            timer.cancel();
+            tarea2.cancel();
+            timer2.cancel();
+            vista.dispose();
+                
+            vistaEstadisticas = new EstadisticasView();
+            modeloEstadisticas = new EstadisticasModel(ronda.getPuntaje(), ronda.getAciertos(), ronda.getFallos());
+            controladorEstadisticas = new EstadisticasController(vistaEstadisticas, modeloEstadisticas);
+        }
+    }
+    
+    class btonSonidoListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(muted == false) {
+                muted = true;
+                vista.setIconMuteActivado(vidaPerdida);
+            }else{
+                muted = false;
+                vista.setIconMuteDesactivado(figura1);
+            } 
+        }
+    }
+    
+    private void verificarImagenes(){        
+        imagenesActivas = new ArrayList<>();
+        obtenerImagenesActivas();
+        for(int i = 0; i < imagenesActivas.size(); i++) {
+            for(int j = i + 1; j < imagenesActivas.size(); j++) {
+                if (imagenesActivas.get(i).getID() == imagenesActivas.get(j).getID() ){
+                    hayFallo = true;
+                }
+            }
+        }
+    }
+    
+    private void obtenerImagenesActivas(){
+        imagenesActivas.add(vista.getIconEtiqueta1());
+        imagenesActivas.add(vista.getIconEtiqueta2());
+        imagenesActivas.add(vista.getIconEtiqueta3());
+        imagenesActivas.add(vista.getIconEtiqueta4());
+        imagenesActivas.add(vista.getIconEtiqueta5());
+        imagenesActivas.add(vista.getIconEtiqueta6());
+        imagenesActivas.add(vista.getIconEtiqueta7());
+        imagenesActivas.add(vista.getIconEtiqueta8());
+        
+        for (int i = 0; i < imagenesActivas.size(); i++) {
+            if (imagenesActivas.get(i) == null) {
+                imagenesActivas.remove(i);
+                i--; // Reduce el índice para seguir comprobando el siguiente elemento.
+            }
+        }
+    }
+    
+    public void limpiar(){
+        vista.setIconEtiqueta1Finalizar();
+        vista.setIconEtiqueta2Finalizar();
+        vista.setIconEtiqueta3Finalizar();
+        vista.setIconEtiqueta4Finalizar();
+        vista.setIconEtiqueta5Finalizar();
+        vista.setIconEtiqueta6Finalizar();
+        vista.setIconEtiqueta7Finalizar();
+        vista.setIconEtiqueta8Finalizar();
+        
+        listaDeFigurasUsadas.clear();
+        listaDeFigurasTransicion.clear();
+        etiquetasConImagen.clear();
+        imagenesActivas.clear();
+        numerosUsados.clear();
+        
+        indiceImagen = 0;
+        indiceImagen2 = 0;
+    }
+    
+    public void determinarFallo(){
+        timer2 = new Timer();
+        tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+                if(hayFallo == true){
+                    tarea.cancel();
+                    timer.cancel();
+                    limpiar();
+
+                    switch(numFiguras) { 
+                        case 3 -> {
+                            numFiguras = 3;
+                            tiempoDeterminarFallo = 5000;
+                            tiempoTransicion = 6000;
+                        }
+                        case 4 -> {
+                            numFiguras = 3;
+                            tiempoDeterminarFallo = 5000;
+                            tiempoTransicion = 6000;
+                        }
+                        case 5 -> {
+                            numFiguras = 4;
+                            tiempoDeterminarFallo = 4000;
+                            tiempoTransicion = 5000;
+                        }
+                        case 6 -> {
+                            numFiguras = 5;
+                            tiempoDeterminarFallo = 3000;
+                            tiempoTransicion = 4000;
+                            
+                        }
+                        case 7 -> {
+                            numFiguras = 6;
+                            tiempoDeterminarFallo = 3000;
+                            tiempoTransicion = 4000;
+                            
+                        }
+                        case 8 -> {
+                            numFiguras = 7;
+                            tiempoDeterminarFallo = 2000;
+                            tiempoTransicion = 3000;
+                        }
+                    }
+                    ronda.aumentarFallos();
+                    iniciarJuegoOtraVezFallo(); 
+                }
             }
         };
-        
         timer2.schedule(tarea2, 1000, tiempoDeterminarFallo);
     }
     
@@ -584,17 +615,14 @@ public class JuegoController {
             case 3 -> {
                 ronda.restarVida();
                 vista.setIconEtiquetaVida1(vidaPerdida);
-                System.out.println("Se resto una vida");
             }
             case 2 -> {
                 ronda.restarVida();
                 vista.setIconEtiquetaVida2(vidaPerdida);
-                System.out.println("Se resto dos vidas");
             }
             case 1 -> {
                 ronda.restarVida();
                 vista.setIconEtiquetaVida3(vidaPerdida);
-                System.out.println("Se resto tres vidas");
             }
         }
     }
@@ -618,5 +646,4 @@ public class JuegoController {
             e.printStackTrace();
         }
     }
-
 }

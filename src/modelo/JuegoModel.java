@@ -11,11 +11,6 @@ public class JuegoModel {
         return figura;         
     }
     
-    public Figura crearFigura(int id2, ImageIcon imagen2){
-        Figura figura = new Figura(id2, imagen2);
-        return figura;         
-    }
-    
     public Ronda crearRonda(){
         Ronda ronda = new Ronda();
         return ronda;         
@@ -23,19 +18,12 @@ public class JuegoModel {
     
     public class Figura extends ImageIcon{
         private int id;
-        private ImageIcon figura;
-        private ImageIcon figura2;
         
         public Figura(String filename, int id) {
             super(filename);
             this.id = id;
         }
         
-        public Figura(int id, ImageIcon asignarId){
-            this.id = id;
-            figura2 = asignarId;
-        }
-
         public int getID() {
             return id;
         }
@@ -48,10 +36,14 @@ public class JuegoModel {
     public class Ronda{
         private int vidas;
         private int puntaje;
+        private int aciertos;
+        private int fallos;
         
         public Ronda() {
             vidas = 3;
             puntaje = 0;
+            aciertos = 0;
+            fallos = 0;
         }
         
         public void restarVida(){
@@ -64,12 +56,28 @@ public class JuegoModel {
             puntaje += puntajeAsumar;
         }
         
+        public void aumentarAciertos(){
+            aciertos = aciertos + 1;
+        }
+        
+        public void aumentarFallos(){
+            fallos = fallos + 1;
+        }
+        
         public int getVidas(){
             return vidas;
         }
         
         public int getPuntaje(){
             return puntaje;
+        }
+        
+        public int getAciertos(){
+            return aciertos;
+        }
+        
+        public int getFallos(){
+            return fallos;
         }
     }
 }

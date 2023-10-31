@@ -1,13 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author Fernando
- */
 public class EstadisticasModel {
+    private int puntaje;
+    private int aciertos;
+    private int fallos;
     
+    public EstadisticasModel(int puntaje, int aciertos, int fallos) {
+        this.puntaje = puntaje;
+        this.aciertos = aciertos;
+        this.fallos = fallos;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public int getAciertos() {
+        return aciertos;
+    }
+
+    public int getFallos() {
+        return fallos;
+    }
 }

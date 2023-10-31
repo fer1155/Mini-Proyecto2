@@ -20,37 +20,32 @@ public class PrincipalController {
     private JuegoModel modeloJuego;
     private JuegoController controladorJuego;
 
-
     public PrincipalController(PrincipalView vista, PrincipalModel modelo) {
         this.vista = vista;
         this.modelo = modelo;
         
         vista.setVisible(true);
  
-        this.vista.addBtnFuncionListener(new ventanaListener());
-        this.vista.addBtnJuegoListener(new ventanaListener());
+        this.vista.addBtnFuncionListener(new abrirVentanaListener());
+        this.vista.addBtnJuegoListener(new abrirVentanaListener());
     }
     
-    class ventanaListener implements ActionListener{
-
+    class abrirVentanaListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equalsIgnoreCase("¿Para que sirve?")){
                 vistaFuncion = new FuncionView();
                 modeloFuncion = new FuncionModel();
                 controladorFuncion = new FuncionController(vistaFuncion, modeloFuncion);
-                
                 vista.dispose();
             }
-            
+ 
             if(e.getActionCommand().equalsIgnoreCase("Jugar")){
                 vistaJuego = new JuegoView();
                 modeloJuego = new JuegoModel();
                 controladorJuego = new JuegoController(vistaJuego, modeloJuego);
-                
                 vista.dispose();
-           }
-        }
-        
+            }
+        }   
     }
 }
