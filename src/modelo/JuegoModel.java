@@ -47,9 +47,11 @@ public class JuegoModel {
     
     public class Ronda{
         private int vidas;
+        private int puntaje;
         
         public Ronda() {
             vidas = 3;
+            puntaje = 0;
         }
         
         public void restarVida(){
@@ -58,8 +60,16 @@ public class JuegoModel {
             }
         }
         
+        public void aumetarPuntaje(int puntajeAsumar){
+            puntaje += puntajeAsumar;
+        }
+        
         public int getVidas(){
             return vidas;
+        }
+        
+        public int getPuntaje(){
+            return puntaje;
         }
     }
 }

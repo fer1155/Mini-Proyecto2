@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -51,6 +52,8 @@ public class JuegoView extends JFrame {
     private Figura figuraEtq6;
     private Figura figuraEtq7;
     private Figura figuraEtq8;
+    private JLabel etiqueta9;
+    private int puntaje = 0;
     
     //Constructor de la ventana Juego
     public JuegoView(){
@@ -68,6 +71,7 @@ public class JuegoView extends JFrame {
         establecerBotonDelJuego();
         establecerEtiquetas();
         establecerVidas();
+        establecerPuntaje();
     }
     
     private void establecerLayeredPanel() {
@@ -187,6 +191,18 @@ public class JuegoView extends JFrame {
         idEtiqueta8 = 8;
         layeredPane.add(etiqueta8, JLayeredPane.MODAL_LAYER);   
     }
+    
+    private void establecerPuntaje() {
+        etiqueta9 = new JLabel("Score: " + puntaje);
+        etiqueta9.setBounds(180, 400, 150, 50);
+        etiqueta9.setOpaque(true); 
+        etiqueta9.setBackground(Color.WHITE);
+        Color colorLetra = new Color(40, 28, 5);
+        etiqueta9.setForeground(colorLetra);
+        etiqueta9.setFont(new Font("Verdana", 1, 20));
+        layeredPane.add(etiqueta9, JLayeredPane.MODAL_LAYER);   
+    }
+    
     
     public void setIconEtiqueta1(Figura imagen){
         etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
@@ -363,67 +379,6 @@ public class JuegoView extends JFrame {
         return null;
     }
     
-    public void setIconEtiquetaPonerBorde(int id){
-        bordeLineaNegra = BorderFactory.createLineBorder(Color.BLACK, 6);
-        
-        switch(id) { 
-            case 1 -> {
-                etiqueta1.setBorder(bordeLineaNegra);
-            }
-            case 2 -> {
-                etiqueta2.setBorder(bordeLineaNegra);
-            }
-            case 3 -> {
-                etiqueta3.setBorder(bordeLineaNegra);
-            }
-            case 4 -> {
-                etiqueta4.setBorder(bordeLineaNegra);
-            }
-            case 5 -> {
-                etiqueta5.setBorder(bordeLineaNegra);
-            }
-            case 6 -> {
-                etiqueta6.setBorder(bordeLineaNegra);
-            }
-            case 7 -> {
-                etiqueta7.setBorder(bordeLineaNegra);
-            }
-            case 8 -> {
-                etiqueta8.setBorder(bordeLineaNegra);
-            }
-        }
-    }
-    
-    public void setIconEtiquetaQuitarBorde(int id){
-        
-        switch(id) { 
-            case 1 -> {
-                etiqueta1.setBorder(null);
-            }
-            case 2 -> {
-                etiqueta2.setBorder(null);
-            }
-            case 3 -> {
-                etiqueta3.setBorder(null);
-            }
-            case 4 -> {
-                etiqueta4.setBorder(null);
-            }
-            case 5 -> {
-                etiqueta5.setBorder(null);
-            }
-            case 6 -> {
-                etiqueta6.setBorder(null);
-            }
-            case 7 -> {
-                etiqueta7.setBorder(null);
-            }
-            case 8 -> {
-                etiqueta8.setBorder(null);
-            }
-        }
-    }
-
     public boolean isEstadoEtq1() {
         return estadoEtq1;
     }
@@ -493,12 +448,15 @@ public class JuegoView extends JFrame {
     }
     
     public void setIconEtiquetaVida2(ImageIcon imagen){
-        etiquetaVida2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
+        etiquetaVida2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida2.getWidth(), etiquetaVida2.getHeight(), Image.SCALE_SMOOTH)));
     }
     
     public void setIconEtiquetaVida3(ImageIcon imagen){
-        etiquetaVida3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida1.getWidth(), etiquetaVida1.getHeight(), Image.SCALE_SMOOTH)));
+        etiquetaVida3.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiquetaVida3.getWidth(), etiquetaVida3.getHeight(), Image.SCALE_SMOOTH)));
     }
-    
+
+    public void setPuntaje(int puntajeNuevo){
+        etiqueta9.setText("Puntaje: " + puntajeNuevo);
+    }
     
 }
