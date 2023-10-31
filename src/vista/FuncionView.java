@@ -19,6 +19,7 @@ public class FuncionView extends JFrame {
     private JLabel texto;
     private ImageIcon imagenBotonCerrar;
     private JLabel etiquetaBotonCerrar;
+    private ImageIcon imagenSoldador2;
     
     //Constructor de la ventana Funcion
     public FuncionView(){
@@ -35,6 +36,7 @@ public class FuncionView extends JFrame {
         establecerFondo();
         establecerTexto();
         establecerBotonCerrar();
+        establecerImagen();
     }
     
     private void establecerLayeredPanel() {
@@ -57,6 +59,13 @@ public class FuncionView extends JFrame {
         layeredPane.add(etiquetaFondo, JLayeredPane.PALETTE_LAYER);
     }
     
+    private void establecerImagen() {
+        imagenSoldador2 = new ImageIcon("soldador2.png");
+        JLabel etiquetaImg1 = new JLabel();
+        etiquetaImg1.setBounds(570, 395, 180, 180);
+        etiquetaImg1.setIcon(new ImageIcon(imagenSoldador2.getImage().getScaledInstance(etiquetaImg1.getWidth(), etiquetaImg1.getHeight(), Image.SCALE_SMOOTH)));
+        layeredPane.add(etiquetaImg1, JLayeredPane.MODAL_LAYER);
+    }
      private void establecerTexto() {
         texto = new JLabel("<html>Este juego pone en acción la habilidad para comparar patrones visuales, entrenando además la atención a los detalles y la velocidad perceptiva. Estas capacidades son relevantes cuando hay que decidir entre estímulos semejantes y hay que hacerlo de forma rápida, por ejemplo, al reconocer fotografías, caras, objetos cotidianos o palabras escritas.</html>");
         texto.setBounds(125, 165, 600, 250);
@@ -71,7 +80,7 @@ public class FuncionView extends JFrame {
     private void establecerBotonCerrar() {
         imagenBotonCerrar = new ImageIcon("tornillo.png");
         etiquetaBotonCerrar = new JLabel();
-        etiquetaBotonCerrar.setBounds(723, 105, 65, 65);
+        etiquetaBotonCerrar.setBounds(718, 105, 75, 65);
         etiquetaBotonCerrar.setIcon(new ImageIcon(imagenBotonCerrar.getImage().getScaledInstance(etiquetaBotonCerrar.getWidth(), etiquetaBotonCerrar.getHeight(), Image.SCALE_SMOOTH)));
         layeredPane.add(etiquetaBotonCerrar, JLayeredPane.MODAL_LAYER);
     }
@@ -79,4 +88,5 @@ public class FuncionView extends JFrame {
     public void addBtnCerrarListener(MouseListener listenControl){
         etiquetaBotonCerrar.addMouseListener(listenControl);
     }
+    
 }
