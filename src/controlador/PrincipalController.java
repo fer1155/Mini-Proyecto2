@@ -6,7 +6,9 @@ import vista.PrincipalView;
 import modelo.PrincipalModel;
 import vista.FuncionView;
 import modelo.FuncionModel;
+import modelo.InstruccionesModel;
 import modelo.JuegoModel;
+import vista.InstruccionesView;
 import vista.JuegoView;
 
 public class PrincipalController {
@@ -19,7 +21,9 @@ public class PrincipalController {
     private JuegoView vistaJuego;
     private JuegoModel modeloJuego;
     private JuegoController controladorJuego;
-
+    private InstruccionesView vistaInstrucciones;
+    private InstruccionesModel modeloInstrucciones;
+    private InstruccionesController InstruccionesJuego;
 
     public PrincipalController(PrincipalView vista, PrincipalModel modelo) {
         this.vista = vista;
@@ -27,30 +31,34 @@ public class PrincipalController {
         
         vista.setVisible(true);
  
-        this.vista.addBtnFuncionListener(new ventanaListener());
-        this.vista.addBtnJuegoListener(new ventanaListener());
+        this.vista.addBtnFuncionListener(new abrirVentanaListener());
+        this.vista.addBtnJuegoListener(new abrirVentanaListener());
+        this.vista.addBtnInstruccionesListener(new abrirVentanaListener());
     }
     
-    class ventanaListener implements ActionListener{
-
+    class abrirVentanaListener implements ActionListener{ 
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equalsIgnoreCase("¿Para que sirve?")){
                 vistaFuncion = new FuncionView();
                 modeloFuncion = new FuncionModel();
                 controladorFuncion = new FuncionController(vistaFuncion, modeloFuncion);
-                
                 vista.dispose();
             }
-            
+ 
             if(e.getActionCommand().equalsIgnoreCase("Jugar")){
                 vistaJuego = new JuegoView();
                 modeloJuego = new JuegoModel();
                 controladorJuego = new JuegoController(vistaJuego, modeloJuego);
-                
                 vista.dispose();
-           }
-        }
-        
+            }
+            
+            if(e.getActionCommand().equalsIgnoreCase("¿COMO JUGAR?")){
+                vistaInstrucciones = new InstruccionesView();
+                modeloInstrucciones = new InstruccionesModel();
+                InstruccionesJuego = new InstruccionesController(vistaInstrucciones, modeloInstrucciones);
+                vista.dispose();
+            }
+        }   
     }
 }

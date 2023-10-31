@@ -21,17 +21,15 @@ public class FuncionController {
         
         vista.setVisible(true);
         
-        this.vista.addBtnCerrarListener(new ventanaListener());
+        this.vista.addBtnCerrarListener(new abrirVentanaListener());
     }
     
-    class ventanaListener extends MouseAdapter{
-        
+    class abrirVentanaListener extends MouseAdapter{
         @Override
         public void mouseClicked(MouseEvent e) {
             vistaPrincipal = new PrincipalView();
             modeloPrincipal = new PrincipalModel();
             controladorPrincipal = new PrincipalController(vistaPrincipal, modeloPrincipal);
-                
             vista.dispose();
         }   
     }
