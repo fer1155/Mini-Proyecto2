@@ -113,7 +113,7 @@ public class EstadisticasView extends JFrame{
     private void establecerBotonSalir() {
         botonSalir = new JButton("Salir");
         botonSalir.setFocusPainted(false);
-        botonSalir.setBounds(280, 460, 110, 45); 
+        botonSalir.setBounds(290, 460, 110, 45); 
         botonSalir.setForeground(Color.WHITE);
         botonSalir.setFont(new Font("Britannic Bold", 0, 22));
         Color colorFondoBtn2 = new Color(232, 19, 19);
@@ -126,7 +126,7 @@ public class EstadisticasView extends JFrame{
     private void establecerBotonVolverAJugar() {
         botonVolverAJugar = new JButton("Volver a Jugar");
         botonVolverAJugar.setFocusPainted(false);
-        botonVolverAJugar.setBounds(430, 460, 210, 45); 
+        botonVolverAJugar.setBounds(440, 460, 210, 45); 
         botonVolverAJugar.setForeground(Color.WHITE);
         botonVolverAJugar.setFont(new Font("Britannic Bold", 0, 22));
         Color colorFondoBtn2 = new Color(232, 19, 19);
